@@ -43,7 +43,7 @@ fi
 # ---------------------------------------------------------------------------
 # 3. Paquets brew
 # ---------------------------------------------------------------------------
-FORMULAE=(tmux neovim lazygit lazydocker ripgrep fd fzf node coreutils bottom stow gh)
+FORMULAE=(tmux neovim lazygit lazydocker ripgrep fd fzf node coreutils bottom stow gh starship)
 info "Installation/mise à jour des paquets brew..."
 brew install "${FORMULAE[@]}" 2>/dev/null || true
 ok "Paquets brew OK"
@@ -72,6 +72,7 @@ backup_if_exists() {
 }
 
 backup_if_exists "$HOME/.tmux.conf"
+backup_if_exists "$HOME/.config/fish/config.fish"
 backup_if_exists "$HOME/.config/fish/conf.d/tmux.fish"
 backup_if_exists "$HOME/.config/ghostty/config"
 
@@ -138,6 +139,7 @@ echo -e "  ${BLUE}1.${NC} Relance Ghostty pour prendre la nouvelle font"
 echo -e "  ${BLUE}2.${NC} Lance ${YELLOW}tmux${NC}, puis ${YELLOW}Ctrl-a I${NC} pour installer les plugins tmux"
 echo -e "  ${BLUE}3.${NC} Lance ${YELLOW}nvim${NC} — LazyVim installera ses plugins au premier démarrage"
 echo -e "  ${BLUE}4.${NC} Dans nvim, lance ${YELLOW}:checkhealth${NC} pour vérifier"
+echo -e "  ${BLUE}5.${NC} Crée ${YELLOW}~/.config/fish/conf.d/secrets.fish${NC} pour tes tokens/credentials"
 echo ""
 echo -e "Raccourcis tmux principaux :"
 echo -e "  ${YELLOW}Ctrl-a y${NC}  Claude Code popup"
