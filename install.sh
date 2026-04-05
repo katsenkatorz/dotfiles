@@ -61,7 +61,7 @@ ok "Paquets brew OK"
 # ---------------------------------------------------------------------------
 # 4. Casks & Nerd Font
 # ---------------------------------------------------------------------------
-CASKS=(font-jetbrains-mono-nerd-font ghostty gcloud-cli)
+CASKS=(font-fira-code-nerd-font ghostty gcloud-cli)
 for cask in "${CASKS[@]}"; do
   if brew list --cask "$cask" &>/dev/null; then
     ok "$cask déjà installé"
