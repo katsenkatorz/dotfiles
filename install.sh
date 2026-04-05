@@ -89,6 +89,8 @@ backup_if_exists "$HOME/.config/fish/config.fish"
 backup_if_exists "$HOME/.config/fish/fish_plugins"
 backup_if_exists "$HOME/.config/fish/conf.d/tmux.fish"
 backup_if_exists "$HOME/.config/ghostty/config"
+backup_if_exists "$HOME/.config/starship.toml"
+backup_if_exists "$HOME/Library/Application Support/com.mitchellh.ghostty/config"
 
 # ---------------------------------------------------------------------------
 # 6. Installer LazyVim starter
@@ -110,12 +112,18 @@ info "Lancement de GNU Stow..."
 
 cd "$DOTFILES_DIR"
 
-# tmux, fish, ghostty : stow classique
-for module in tmux fish ghostty; do
+# tmux, fish, ghostty, starship : stow classique
+for module in tmux fish ghostty starship; do
   stow -v -d "$DOTFILES_DIR" -t "$HOME" "$module" 2>&1 | while read -r line; do
     info "  stow $module: $line"
   done
 done
+
+# Ghostty macOS : symlink vers Application Support (Ghostty lit depuis là, pas ~/.config)
+GHOSTTY_APP_SUPPORT="$HOME/Library/Application Support/com.mitchellh.ghostty"
+mkdir -p "$GHOSTTY_APP_SUPPORT"
+ln -sf "$HOME/.config/ghostty/config" "$GHOSTTY_APP_SUPPORT/config"
+ok "Symlink Ghostty → Application Support"
 
 # nvim : --adopt pour fusionner avec le starter existant
 stow -v --adopt -d "$DOTFILES_DIR" -t "$HOME" nvim 2>&1 | while read -r line; do

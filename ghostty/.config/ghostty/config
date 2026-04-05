@@ -1,2 +1,31 @@
-font-family = JetBrainsMono Nerd Font Mono
+#~~~~~~~~~~~~~~~~~~~~~~~#
+# Ghostty configuration #
+#~~~~~~~~~~~~~~~~~~~~~~~#
+shell-integration = fish
+desktop-notifications = true
+
+#~~~~~~~~~~~~~~~~~~~~~~~#
+#theme
+#~~~~~~~~~~~~~~~~~~~~~~~#
+theme = Catppuccin mocha
+font-family = FiraCode
 font-size = 14
+background = #1B2240
+
+# Surcharge pour améliorer la lisibilité des erreurs Symfony
+# Rouge plus foncé pour le fond des erreurs
+palette = 1=#DC2626
+# Rouge vif pour les erreurs normales
+palette = 9=#EF4444
+
+#~~~~~~~~~~~~~~~~~~~~~~~#
+#quick-term
+#~~~~~~~~~~~~~~~~~~~~~~~#
+quick-terminal-position = bottom
+quick-terminal-space-behavior = remain
+quick-terminal-screen = mouse
+
+#~~~~~~~~~~~~~~~~~~~~~~~#
+#keybind
+#~~~~~~~~~~~~~~~~~~~~~~~#
+keybind = global:opt+space=toggle_quick_terminal
