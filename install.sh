@@ -43,21 +43,34 @@ fi
 # ---------------------------------------------------------------------------
 # 3. Paquets brew
 # ---------------------------------------------------------------------------
-FORMULAE=(tmux neovim lazygit lazydocker ripgrep fd fzf node coreutils bottom stow gh starship)
+FORMULAE=(
+  # Terminal & navigation
+  tmux fish starship bat yazi zoxide television fastfetch btop tlrc taproom
+  # Éditeur
+  neovim tree-sitter
+  # Recherche & outils
+  ripgrep fd fzf coreutils bottom stow gh
+  # Dev
+  node php composer symfony-cli yarn docker docker-compose colima
+  lazygit lazydocker glab
+)
 info "Installation/mise à jour des paquets brew..."
 brew install "${FORMULAE[@]}" 2>/dev/null || true
 ok "Paquets brew OK"
 
 # ---------------------------------------------------------------------------
-# 4. Nerd Font
+# 4. Casks & Nerd Font
 # ---------------------------------------------------------------------------
-if brew list --cask font-jetbrains-mono-nerd-font &>/dev/null; then
-  ok "JetBrainsMono Nerd Font déjà installée"
-else
-  info "Installation de JetBrainsMono Nerd Font..."
-  brew install --cask font-jetbrains-mono-nerd-font
-  ok "JetBrainsMono Nerd Font installée"
-fi
+CASKS=(font-jetbrains-mono-nerd-font ghostty gcloud-cli)
+for cask in "${CASKS[@]}"; do
+  if brew list --cask "$cask" &>/dev/null; then
+    ok "$cask déjà installé"
+  else
+    info "Installation de $cask..."
+    brew install --cask "$cask"
+    ok "$cask installé"
+  fi
+done
 
 # ---------------------------------------------------------------------------
 # 5. Sauvegarder les configs existantes
@@ -73,6 +86,7 @@ backup_if_exists() {
 
 backup_if_exists "$HOME/.tmux.conf"
 backup_if_exists "$HOME/.config/fish/config.fish"
+backup_if_exists "$HOME/.config/fish/fish_plugins"
 backup_if_exists "$HOME/.config/fish/conf.d/tmux.fish"
 backup_if_exists "$HOME/.config/ghostty/config"
 
@@ -116,7 +130,25 @@ git checkout -- nvim/ 2>/dev/null || true
 ok "Stow terminé"
 
 # ---------------------------------------------------------------------------
-# 8. Installer TPM
+# 8. Installer Fisher + plugins fish
+# ---------------------------------------------------------------------------
+if fish -c "type -q fisher" 2>/dev/null; then
+  ok "Fisher déjà installé"
+else
+  info "Installation de Fisher..."
+  fish -c "curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher"
+  ok "Fisher installé"
+fi
+
+# Installer les plugins listés dans fish_plugins
+if [[ -f "$HOME/.config/fish/fish_plugins" ]]; then
+  info "Installation des plugins Fisher..."
+  fish -c "fisher update" 2>/dev/null || true
+  ok "Plugins Fisher OK"
+fi
+
+# ---------------------------------------------------------------------------
+# 9. Installer TPM
 # ---------------------------------------------------------------------------
 if [[ ! -d "$HOME/.tmux/plugins/tpm" ]]; then
   info "Installation de TPM..."
@@ -127,7 +159,7 @@ else
 fi
 
 # ---------------------------------------------------------------------------
-# 9. Résumé
+# 10. Résumé
 # ---------------------------------------------------------------------------
 echo ""
 echo -e "${GREEN}============================================${NC}"
