@@ -4,9 +4,12 @@
 # (brew services start felixkratz/formulae/borders).
 # Active border: Wibeo green #3CE6AC. Inactive: white at ~15% (hairline feel).
 
+# order=above draws the border on top of the window: its inner half overlaps
+# the window edge and hides the native macOS 1px outline.
 options=(
   style=round
   width=5.0
+  order=above
   hidpi=on
   active_color=0xff3ce6ac
   inactive_color=0x26ffffff
