@@ -1,0 +1,6 @@
+onboarding = false
+
+[keys]
+# Open an existing git worktree as a workspace (unbound by default upstream).
+# Claude Code worktrees (.claude/worktrees/*) show up in this picker too.
+open_worktree = "prefix+shift+o"
