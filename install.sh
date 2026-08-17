@@ -53,6 +53,8 @@ FORMULAE=(
   # Dev
   node php composer symfony-cli yarn docker docker-compose colima
   lazygit lazydocker glab
+  # Agents (herdr : sessions persistantes pour agents de code)
+  herdr
 )
 info "Installation/mise à jour des paquets brew..."
 brew install "${FORMULAE[@]}" 2>/dev/null || true
@@ -146,6 +148,11 @@ ok "Stow terminé"
 info "Démarrage du service JankyBorders..."
 brew services start felixkratz/formulae/borders 2>/dev/null || true
 ok "JankyBorders démarré"
+
+# Herdr en service (serveur de sessions persistantes pour agents)
+info "Démarrage du service Herdr..."
+brew services start herdr 2>/dev/null || true
+ok "Herdr démarré"
 
 # ---------------------------------------------------------------------------
 # 8. Installer Fisher + plugins fish
