@@ -13,8 +13,8 @@ options=(
   hidpi=on
   active_color=0xff3ce6ac
   # Opaque (alpha ff) so it also hides the native outline on unfocused
-  # windows; the value is white@15% flattened onto the dark violet theme.
-  inactive_color=0xff332f41
+  # windows; light gray, slightly violet-tinted to match the dark theme.
+  inactive_color=0xff4a4756
 )
 
 borders "${options[@]}"
