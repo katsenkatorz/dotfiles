@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# JankyBorders config, read by `borders` when launched without arguments
+# (brew services start felixkratz/formulae/borders).
+# Active border: Wibeo green #3CE6AC. Inactive: white at ~15% (hairline feel).
+
+options=(
+  style=round
+  width=5.0
+  hidpi=on
+  active_color=0xff3ce6ac
+  inactive_color=0x26ffffff
+)
+
+borders "${options[@]}"

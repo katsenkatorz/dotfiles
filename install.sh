@@ -45,7 +45,7 @@ fi
 # ---------------------------------------------------------------------------
 FORMULAE=(
   # Terminal & navigation
-  tmux fish starship bat yazi zoxide television fastfetch btop tlrc taproom
+  fish starship bat yazi zoxide television fastfetch btop tlrc taproom
   # Éditeur
   neovim tree-sitter
   # Recherche & outils
@@ -57,6 +57,13 @@ FORMULAE=(
 info "Installation/mise à jour des paquets brew..."
 brew install "${FORMULAE[@]}" 2>/dev/null || true
 ok "Paquets brew OK"
+
+# JankyBorders (window borders) : tap tiers, doit etre trusted d'abord
+info "Installation de JankyBorders..."
+brew tap felixkratz/formulae 2>/dev/null || true
+brew trust felixkratz/formulae 2>/dev/null || true
+brew install borders 2>/dev/null || true
+ok "JankyBorders OK"
 
 # ---------------------------------------------------------------------------
 # 4. Casks & Nerd Font
@@ -84,10 +91,8 @@ backup_if_exists() {
   fi
 }
 
-backup_if_exists "$HOME/.tmux.conf"
 backup_if_exists "$HOME/.config/fish/config.fish"
 backup_if_exists "$HOME/.config/fish/fish_plugins"
-backup_if_exists "$HOME/.config/fish/conf.d/tmux.fish"
 backup_if_exists "$HOME/.config/ghostty/config"
 backup_if_exists "$HOME/.config/starship.toml"
 backup_if_exists "$HOME/Library/Application Support/com.mitchellh.ghostty/config"
@@ -112,8 +117,8 @@ info "Lancement de GNU Stow..."
 
 cd "$DOTFILES_DIR"
 
-# tmux, fish, ghostty, starship : stow classique
-for module in tmux fish ghostty starship; do
+# fish, ghostty, starship : stow classique
+for module in fish ghostty starship borders; do
   stow -v -d "$DOTFILES_DIR" -t "$HOME" "$module" 2>&1 | while read -r line; do
     info "  stow $module: $line"
   done
@@ -137,6 +142,11 @@ git checkout -- nvim/ 2>/dev/null || true
 
 ok "Stow terminé"
 
+# JankyBorders en service (lit ~/.config/borders/bordersrc, symlinke ci-dessus)
+info "Démarrage du service JankyBorders..."
+brew services start felixkratz/formulae/borders 2>/dev/null || true
+ok "JankyBorders démarré"
+
 # ---------------------------------------------------------------------------
 # 8. Installer Fisher + plugins fish
 # ---------------------------------------------------------------------------
@@ -156,18 +166,7 @@ if [[ -f "$HOME/.config/fish/fish_plugins" ]]; then
 fi
 
 # ---------------------------------------------------------------------------
-# 9. Installer TPM
-# ---------------------------------------------------------------------------
-if [[ ! -d "$HOME/.tmux/plugins/tpm" ]]; then
-  info "Installation de TPM..."
-  git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
-  ok "TPM installé"
-else
-  ok "TPM déjà installé"
-fi
-
-# ---------------------------------------------------------------------------
-# 10. Résumé
+# 9. Résumé
 # ---------------------------------------------------------------------------
 echo ""
 echo -e "${GREEN}============================================${NC}"
@@ -176,15 +175,7 @@ echo -e "${GREEN}============================================${NC}"
 echo ""
 echo -e "Étapes manuelles restantes :"
 echo -e "  ${BLUE}1.${NC} Relance Ghostty pour prendre la nouvelle font"
-echo -e "  ${BLUE}2.${NC} Lance ${YELLOW}tmux${NC}, puis ${YELLOW}Ctrl-a I${NC} pour installer les plugins tmux"
-echo -e "  ${BLUE}3.${NC} Lance ${YELLOW}nvim${NC} — LazyVim installera ses plugins au premier démarrage"
-echo -e "  ${BLUE}4.${NC} Dans nvim, lance ${YELLOW}:checkhealth${NC} pour vérifier"
-echo -e "  ${BLUE}5.${NC} Crée ${YELLOW}~/.config/fish/conf.d/secrets.fish${NC} pour tes tokens/credentials"
-echo ""
-echo -e "Raccourcis tmux principaux :"
-echo -e "  ${YELLOW}Ctrl-a y${NC}  Claude Code popup"
-echo -e "  ${YELLOW}Ctrl-a g${NC}  LazyGit popup"
-echo -e "  ${YELLOW}Ctrl-a d${NC}  LazyDocker popup"
-echo -e "  ${YELLOW}Ctrl-a e${NC}  Neovim popup"
-echo -e "  ${YELLOW}Ctrl-a b${NC}  bottom (monitoring)"
+echo -e "  ${BLUE}2.${NC} Lance ${YELLOW}nvim${NC} — LazyVim installera ses plugins au premier démarrage"
+echo -e "  ${BLUE}3.${NC} Dans nvim, lance ${YELLOW}:checkhealth${NC} pour vérifier"
+echo -e "  ${BLUE}4.${NC} Crée ${YELLOW}~/.config/fish/conf.d/secrets.fish${NC} pour tes tokens/credentials"
 echo ""
