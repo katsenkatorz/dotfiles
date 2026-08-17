@@ -120,7 +120,7 @@ info "Lancement de GNU Stow..."
 cd "$DOTFILES_DIR"
 
 # fish, ghostty, starship : stow classique
-for module in fish ghostty starship borders; do
+for module in fish ghostty starship borders herdr; do
   stow -v -d "$DOTFILES_DIR" -t "$HOME" "$module" 2>&1 | while read -r line; do
     info "  stow $module: $line"
   done
