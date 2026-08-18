@@ -4,13 +4,13 @@
 # (brew services start felixkratz/formulae/borders).
 # Sonokai palette, aligned with the SketchyBar config (FelixKratz dotfiles).
 
-# order=above draws the border on top of the window: its inner half overlaps
-# the window edge and hides the native macOS 1px outline; opaque colors
-# (alpha ff) keep it hidden on unfocused windows too.
+# order=below keeps Mission Control animations clean (above-borders lag
+# behind the window snapshots). The native 1px outline stays visible but
+# blends with the off-white active color of this palette.
 options=(
   style=round
   width=5.0
-  order=above
+  order=below
   hidpi=on
   active_color=0xffe2e2e3
   inactive_color=0xff414550
