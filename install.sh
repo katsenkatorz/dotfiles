@@ -67,6 +67,13 @@ brew trust felixkratz/formulae 2>/dev/null || true
 brew install borders sketchybar 2>/dev/null || true
 ok "JankyBorders et SketchyBar OK"
 
+# yabai + skhd (koekeishiya) : tiling WM + raccourcis, permission Accessibilite requise
+info "Installation de yabai et skhd..."
+brew tap koekeishiya/formulae 2>/dev/null || true
+brew trust koekeishiya/formulae 2>/dev/null || true
+brew install yabai skhd 2>/dev/null || true
+ok "yabai et skhd OK"
+
 # ---------------------------------------------------------------------------
 # 4. Casks & Nerd Font
 # ---------------------------------------------------------------------------
@@ -120,7 +127,7 @@ info "Lancement de GNU Stow..."
 cd "$DOTFILES_DIR"
 
 # fish, ghostty, starship : stow classique
-for module in fish ghostty starship borders herdr sketchybar; do
+for module in fish ghostty starship borders herdr sketchybar yabai skhd; do
   stow -v -d "$DOTFILES_DIR" -t "$HOME" "$module" 2>&1 | while read -r line; do
     info "  stow $module: $line"
   done
@@ -163,6 +170,13 @@ ok "SketchyBar démarré"
 defaults write NSGlobalDomain _HIHideMenuBar -bool true
 killall SystemUIServer 2>/dev/null || true
 ok "Barre de menu native masquée"
+
+# yabai + skhd en service (echouent tant que la permission Accessibilite
+# n'est pas accordee dans Reglages > Confidentialite > Accessibilite)
+info "Démarrage de yabai et skhd..."
+yabai --start-service 2>/dev/null || true
+skhd --start-service 2>/dev/null || true
+warn "Si premier lancement : accorder l'Accessibilité à yabai et skhd puis relancer les services"
 
 # ---------------------------------------------------------------------------
 # 8. Installer Fisher + plugins fish
