@@ -55,8 +55,8 @@ FORMULAE=(
   lazygit lazydocker glab
   # Agents (herdr : sessions persistantes pour agents de code)
   herdr
-  # Desktop (media-control : Now Playing pour SketchyBar)
-  media-control
+  # Desktop (media-control : Now Playing ; lua : config SbarLua de SketchyBar)
+  media-control lua
 )
 info "Installation/mise à jour des paquets brew..."
 brew install "${FORMULAE[@]}" 2>/dev/null || true
@@ -68,6 +68,20 @@ brew tap felixkratz/formulae 2>/dev/null || true
 brew trust felixkratz/formulae 2>/dev/null || true
 brew install borders sketchybar 2>/dev/null || true
 ok "JankyBorders et SketchyBar OK"
+
+# SbarLua (bridge Lua de SketchyBar) + police d'icones d'apps
+if [ ! -f "$HOME/.local/share/sketchybar_lua/sketchybar.so" ]; then
+  info "Compilation de SbarLua..."
+  git clone --depth 1 https://github.com/FelixKratz/SbarLua.git /tmp/SbarLua-build
+  (cd /tmp/SbarLua-build && make install)
+  rm -rf /tmp/SbarLua-build
+fi
+if [ ! -f "$HOME/Library/Fonts/sketchybar-app-font.ttf" ]; then
+  info "Téléchargement de sketchybar-app-font..."
+  curl -sL -o "$HOME/Library/Fonts/sketchybar-app-font.ttf" \
+    https://github.com/kvndrsslr/sketchybar-app-font/releases/latest/download/sketchybar-app-font.ttf
+fi
+ok "SbarLua et police d'icônes OK"
 
 # yabai + skhd (koekeishiya) : tiling WM + raccourcis, permission Accessibilite requise
 info "Installation de yabai et skhd..."
