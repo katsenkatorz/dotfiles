@@ -159,6 +159,11 @@ info "Démarrage du service SketchyBar..."
 brew services start felixkratz/formulae/sketchybar 2>/dev/null || true
 ok "SketchyBar démarré"
 
+# Masquer la barre de menu native (SketchyBar la remplace)
+defaults write NSGlobalDomain _HIHideMenuBar -bool true
+killall SystemUIServer 2>/dev/null || true
+ok "Barre de menu native masquée"
+
 # ---------------------------------------------------------------------------
 # 8. Installer Fisher + plugins fish
 # ---------------------------------------------------------------------------
