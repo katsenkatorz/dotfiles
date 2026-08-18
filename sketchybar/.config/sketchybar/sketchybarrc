@@ -1,0 +1,68 @@
+# SketchyBar config, themed to match the dark violet + green setup
+# (bar #0F0A1C, accent #3CE6AC, same palette as JankyBorders).
+# Docs: https://felixkratz.github.io/SketchyBar/config/bar
+
+PLUGIN_DIR="$CONFIG_DIR/plugins"
+
+ACCENT=0xff3ce6ac
+BAR_BG=0xf20f0a1c
+SURFACE=0x1fffffff
+TEXT=0xffffffff
+
+##### Bar Appearance #####
+sketchybar --bar position=top height=36 color=$BAR_BG
+
+##### Defaults #####
+default=(
+  padding_left=5
+  padding_right=5
+  icon.font="FiraCode Nerd Font:Bold:15.0"
+  label.font="FiraCode Nerd Font:Medium:13.0"
+  icon.color=$TEXT
+  label.color=$TEXT
+  icon.padding_left=4
+  icon.padding_right=4
+  label.padding_left=4
+  label.padding_right=4
+)
+sketchybar --default "${default[@]}"
+
+##### Mission Control Spaces #####
+SPACE_ICONS=("1" "2" "3" "4" "5" "6" "7" "8" "9" "10")
+for i in "${!SPACE_ICONS[@]}"
+do
+  sid="$(($i+1))"
+  space=(
+    space="$sid"
+    icon="${SPACE_ICONS[i]}"
+    icon.padding_left=7
+    icon.padding_right=7
+    icon.highlight_color=$ACCENT
+    background.color=$SURFACE
+    background.corner_radius=5
+    background.height=24
+    label.drawing=off
+    script="$PLUGIN_DIR/space.sh"
+  )
+  sketchybar --add space space."$sid" left --set space."$sid" "${space[@]}"
+done
+
+##### Left Items #####
+sketchybar --add item chevron left \
+           --set chevron icon= label.drawing=off icon.color=$ACCENT \
+           --add item front_app left \
+           --set front_app icon.drawing=off script="$PLUGIN_DIR/front_app.sh" \
+           --subscribe front_app front_app_switched
+
+##### Right Items #####
+sketchybar --add item clock right \
+           --set clock update_freq=10 icon=  script="$PLUGIN_DIR/clock.sh" \
+           --add item volume right \
+           --set volume script="$PLUGIN_DIR/volume.sh" \
+           --subscribe volume volume_change \
+           --add item battery right \
+           --set battery update_freq=120 script="$PLUGIN_DIR/battery.sh" \
+           --subscribe battery system_woke power_source_change
+
+##### Initial refresh (never do this inside an item script) #####
+sketchybar --update

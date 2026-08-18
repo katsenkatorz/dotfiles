@@ -60,12 +60,12 @@ info "Installation/mise à jour des paquets brew..."
 brew install "${FORMULAE[@]}" 2>/dev/null || true
 ok "Paquets brew OK"
 
-# JankyBorders (window borders) : tap tiers, doit etre trusted d'abord
-info "Installation de JankyBorders..."
+# JankyBorders + SketchyBar (FelixKratz) : tap tiers, doit etre trusted d'abord
+info "Installation de JankyBorders et SketchyBar..."
 brew tap felixkratz/formulae 2>/dev/null || true
 brew trust felixkratz/formulae 2>/dev/null || true
-brew install borders 2>/dev/null || true
-ok "JankyBorders OK"
+brew install borders sketchybar 2>/dev/null || true
+ok "JankyBorders et SketchyBar OK"
 
 # ---------------------------------------------------------------------------
 # 4. Casks & Nerd Font
@@ -120,7 +120,7 @@ info "Lancement de GNU Stow..."
 cd "$DOTFILES_DIR"
 
 # fish, ghostty, starship : stow classique
-for module in fish ghostty starship borders herdr; do
+for module in fish ghostty starship borders herdr sketchybar; do
   stow -v -d "$DOTFILES_DIR" -t "$HOME" "$module" 2>&1 | while read -r line; do
     info "  stow $module: $line"
   done
@@ -153,6 +153,11 @@ ok "JankyBorders démarré"
 info "Démarrage du service Herdr..."
 brew services start herdr 2>/dev/null || true
 ok "Herdr démarré"
+
+# SketchyBar en service (lit ~/.config/sketchybar/, symlinke ci-dessus)
+info "Démarrage du service SketchyBar..."
+brew services start felixkratz/formulae/sketchybar 2>/dev/null || true
+ok "SketchyBar démarré"
 
 # ---------------------------------------------------------------------------
 # 8. Installer Fisher + plugins fish
