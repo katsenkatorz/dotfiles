@@ -57,12 +57,17 @@ sketchybar --add item chevron left \
 ##### Right Items #####
 sketchybar --add item clock right \
            --set clock update_freq=10 icon=  script="$PLUGIN_DIR/clock.sh" \
+                 click_script="open -a Calendar" \
            --add item volume right \
            --set volume script="$PLUGIN_DIR/volume.sh" \
-           --subscribe volume volume_change \
+           --subscribe volume volume_change mouse.clicked mouse.scrolled \
            --add item battery right \
            --set battery update_freq=120 script="$PLUGIN_DIR/battery.sh" \
-           --subscribe battery system_woke power_source_change
+                 click_script="open x-apple.systempreferences:com.apple.Battery-Settings.extension" \
+           --subscribe battery system_woke power_source_change \
+           --add item wifi right \
+           --set wifi update_freq=30 script="$PLUGIN_DIR/wifi.sh" \
+           --subscribe wifi wifi_change mouse.clicked
 
 ##### Initial refresh (never do this inside an item script) #####
 sketchybar --update
