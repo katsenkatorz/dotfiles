@@ -28,6 +28,12 @@ shift + alt - 0 : yabai -m space --balance
 alt - e : yabai -m window --toggle split
 
 # Resize
+# u/i/o/p mirror h/j/k/l one row up: single finger on the WM layer,
+# the ctrl+alt chords stay as a fallback.
+alt - u : yabai -m window --resize left:-40:0 || yabai -m window --resize right:-40:0
+alt - p : yabai -m window --resize right:40:0 || yabai -m window --resize left:40:0
+alt - o : yabai -m window --resize top:0:-40 || yabai -m window --resize bottom:0:-40
+alt - i : yabai -m window --resize bottom:0:40 || yabai -m window --resize top:0:40
 ctrl + alt - h : yabai -m window --resize left:-40:0 || yabai -m window --resize right:-40:0
 ctrl + alt - l : yabai -m window --resize right:40:0 || yabai -m window --resize left:40:0
 ctrl + alt - k : yabai -m window --resize top:0:-40 || yabai -m window --resize bottom:0:-40
