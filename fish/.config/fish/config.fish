@@ -2,6 +2,9 @@
 if status is-interactive
     # Commands to run in interactive sessions can go here
     starship init fish | source
+    if type -q tv
+        tv init fish | source
+    end
 end
 function fish_greeting
 end
@@ -78,3 +81,11 @@ auto_nvm_use
 # bun
 set --export BUN_INSTALL "$HOME/.bun"
 set --export PATH $BUN_INSTALL/bin $PATH
+
+# Local bin
+fish_add_path $HOME/.local/bin
+
+# Windsurf (Codeium)
+if test -d $HOME/.codeium/windsurf/bin
+    fish_add_path $HOME/.codeium/windsurf/bin
+end
