@@ -1,5 +1,11 @@
 #!/usr/bin/env sh
 
+# Scripting addition: needs partial SIP disable + the sudoers entry pinning
+# the yabai binary hash (regenerate it after every yabai upgrade).
+# The Dock signal reloads it whenever macOS restarts the Dock process.
+sudo yabai --load-sa
+yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
+
 # BSP tiling. SketchyBar owns the top 36pt (external_bar), JankyBorders
 # owns the borders, so opacity/shadow tricks stay off.
 
