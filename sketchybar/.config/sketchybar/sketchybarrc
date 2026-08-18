@@ -24,6 +24,10 @@ default=(
   icon.padding_right=4
   label.padding_left=4
   label.padding_right=4
+  popup.background.color=0xff181129
+  popup.background.border_color=0x1fffffff
+  popup.background.border_width=1
+  popup.background.corner_radius=6
 )
 sketchybar --default "${default[@]}"
 
@@ -54,20 +58,44 @@ sketchybar --add item chevron left \
            --set front_app icon.drawing=off script="$PLUGIN_DIR/front_app.sh" \
            --subscribe front_app front_app_switched
 
+##### Center: Now Playing #####
+sketchybar --add item media center \
+           --set media drawing=off update_freq=5 script="$PLUGIN_DIR/media.sh" \
+                 icon.color=$ACCENT label.max_chars=40 scroll_texts=on \
+           --subscribe media mouse.clicked
+
 ##### Right Items #####
 sketchybar --add item clock right \
            --set clock update_freq=10 icon=  script="$PLUGIN_DIR/clock.sh" \
                  click_script="open -a Calendar" \
            --add item volume right \
-           --set volume script="$PLUGIN_DIR/volume.sh" \
-           --subscribe volume volume_change mouse.clicked mouse.scrolled \
+           --set volume script="$PLUGIN_DIR/volume.sh" popup.horizontal=on \
+           --subscribe volume volume_change mouse.clicked mouse.scrolled mouse.exited.global \
+           --add slider volume.slider popup.volume 120 \
+           --set volume.slider script="$PLUGIN_DIR/volume_slider.sh" \
+                 slider.highlight_color=$ACCENT \
+                 slider.background.height=6 \
+                 slider.background.corner_radius=3 \
+                 slider.background.color=0x33ffffff \
+                 slider.knob= \
+                 slider.knob.color=$TEXT \
+           --subscribe volume.slider mouse.clicked \
            --add item battery right \
            --set battery update_freq=120 script="$PLUGIN_DIR/battery.sh" \
                  click_script="open x-apple.systempreferences:com.apple.Battery-Settings.extension" \
            --subscribe battery system_woke power_source_change \
            --add item wifi right \
            --set wifi update_freq=30 script="$PLUGIN_DIR/wifi.sh" \
-           --subscribe wifi wifi_change mouse.clicked
+           --subscribe wifi wifi_change mouse.clicked mouse.exited.global \
+           --add item wifi.ip popup.wifi \
+           --set wifi.ip icon="󰩟" icon.color=$ACCENT \
+           --add item wifi.settings popup.wifi \
+           --set wifi.settings icon="" label="Réglages Wi-Fi..." \
+                 click_script="open x-apple.systempreferences:com.apple.wifi-settings-extension; sketchybar --set wifi popup.drawing=off" \
+           --add item ram right \
+           --set ram update_freq=10 icon="󰍛" script="$PLUGIN_DIR/ram.sh" \
+           --add item cpu right \
+           --set cpu update_freq=5 icon="󰘚" script="$PLUGIN_DIR/cpu.sh"
 
 ##### Initial refresh (never do this inside an item script) #####
 sketchybar --update
