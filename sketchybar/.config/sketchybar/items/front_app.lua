@@ -4,7 +4,7 @@ local icon_map = require("icon_map")
 local front_app = sbar.add("item", "front_app", {
   icon = {
     font = { family = "sketchybar-app-font", style = "Regular", size = 14.0 },
-    color = colors.accent,
+    color = colors.red,
   },
   label = {
     font = { style = "Bold" },

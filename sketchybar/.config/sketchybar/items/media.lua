@@ -8,7 +8,7 @@ local media = sbar.add("item", "media", {
   position = "center",
   drawing = false,
   update_freq = 5,
-  icon = { string = "", color = colors.accent },
+  icon = { string = "", color = colors.red },
   label = { max_chars = 40 },
   scroll_texts = true,
 })

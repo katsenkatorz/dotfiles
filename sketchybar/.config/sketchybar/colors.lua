@@ -1,11 +1,24 @@
--- Same palette as JankyBorders and the product theme (#0F0A1C / #3CE6AC).
+-- FelixKratz's Sonokai palette (github.com/FelixKratz/dotfiles).
 return {
-  bar = 0xf20f0a1c,
-  surface = 0xff181129,
-  surface_light = 0x33ffffff,
-  hairline = 0x1fffffff,
-  text = 0xffffffff,
-  muted = 0x99ffffff,
-  accent = 0xff3ce6ac,
+  black = 0xff181819,
+  white = 0xffe2e2e3,
+  red = 0xfffc5d7c,
+  green = 0xff9ed072,
+  blue = 0xff76cce0,
+  yellow = 0xffe7c664,
+  orange = 0xfff39660,
+  magenta = 0xffb39df3,
+  grey = 0xff7f8490,
   transparent = 0x00000000,
+
+  bar = {
+    bg = 0xf02c2e34,
+    border = 0xff2c2e34,
+  },
+  popup = {
+    bg = 0xc02c2e34,
+    border = 0xff7f8490,
+  },
+  bg1 = 0xff363944,
+  bg2 = 0xff414550,
 }
