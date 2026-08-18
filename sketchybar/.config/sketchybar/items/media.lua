@@ -8,7 +8,7 @@ local media = sbar.add("item", "media", {
   position = "center",
   drawing = false,
   update_freq = 5,
-  icon = { string = "", color = colors.red },
+  icon = { string = "󰝚", color = colors.red },
   label = { max_chars = 40 },
   scroll_texts = true,
 })
@@ -22,7 +22,7 @@ local function refresh()
       end
       media:set({
         drawing = true,
-        icon = { string = info.playing and "" or "" },
+        icon = { string = info.playing and "󰐊" or "󰏤" },
         label = { string = label },
       })
     else

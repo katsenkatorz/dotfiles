@@ -1,7 +1,7 @@
 local calendar = sbar.add("item", "calendar", {
   position = "right",
   update_freq = 10,
-  icon = { string = "" },
+  icon = { string = "󰥔" },
 })
 
 calendar:subscribe({ "routine", "forced", "system_woke" }, function()

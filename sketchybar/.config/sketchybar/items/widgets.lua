@@ -16,7 +16,7 @@ local volume_slider = sbar.add("slider", 120, {
       corner_radius = 3,
       color = colors.bg2,
     },
-    knob = { string = "", color = colors.white },
+    knob = { string = "󰝥", color = colors.white },
   },
 })
 
@@ -66,12 +66,12 @@ battery:subscribe({ "routine", "forced", "system_woke", "power_source_change" },
       return
     end
     local n = tonumber(pct)
-    local icon, color = "", colors.red
-    if tostring(info):find("AC Power") then icon, color = "", colors.green
-    elseif n >= 90 then icon, color = "", colors.green
-    elseif n >= 60 then icon, color = "", colors.yellow
-    elseif n >= 30 then icon, color = "", colors.orange
-    elseif n >= 10 then icon, color = "", colors.orange end
+    local icon, color = "󰁺", colors.red
+    if tostring(info):find("AC Power") then icon, color = "󰂄", colors.green
+    elseif n >= 90 then icon, color = "󰁹", colors.green
+    elseif n >= 60 then icon, color = "󰂀", colors.yellow
+    elseif n >= 30 then icon, color = "󰁾", colors.orange
+    elseif n >= 10 then icon, color = "󰁻", colors.orange end
     battery:set({ drawing = true, icon = { string = icon, color = color }, label = pct .. "%" })
   end)
 end)
@@ -95,7 +95,7 @@ local wifi_ip = sbar.add("item", "wifi.ip", {
 
 local wifi_settings = sbar.add("item", "wifi.settings", {
   position = "popup." .. wifi.name,
-  icon = { string = "" },
+  icon = { string = "󰒓" },
   label = "Réglages Wi-Fi...",
 })
 
