@@ -55,6 +55,8 @@ FORMULAE=(
   lazygit lazydocker glab
   # Agents (herdr : sessions persistantes pour agents de code)
   herdr
+  # Desktop (media-control : Now Playing pour SketchyBar)
+  media-control
 )
 info "Installation/mise à jour des paquets brew..."
 brew install "${FORMULAE[@]}" 2>/dev/null || true
