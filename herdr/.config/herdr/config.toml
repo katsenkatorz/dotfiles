@@ -4,3 +4,14 @@ onboarding = false
 # Open an existing git worktree as a workspace (unbound by default upstream).
 # Claude Code worktrees (.claude/worktrees/*) show up in this picker too.
 open_worktree = "prefix+shift+o"
+
+[ui]
+agent_panel_sort = "spaces"
+
+show_agent_labels_on_pane_borders = true
+[ui.toast]
+delivery = "terminal"
+
+[theme]
+name = "catppuccin"
+auto_switch = false
