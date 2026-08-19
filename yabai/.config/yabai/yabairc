@@ -39,7 +39,10 @@ yabai -m rule --add app="^(Steam|Battle\.net|World of Warcraft|Diablo III|CurseF
 yabai -m rule --add app="^Arc$" space=1
 yabai -m rule --add app="^Ghostty$" space=2
 yabai -m rule --add app="^(PhpStorm|WebStorm|Xcode)$" space=3
-yabai -m rule --add app="^(Discord|Telegram|Microsoft Teams)$" space=4
+# Messaging follows the MacBook display when present (see rules-msg.sh)
+"$HOME/.config/yabai/rules-msg.sh"
+yabai -m signal --add event=display_added action="$HOME/.config/yabai/rules-msg.sh"
+yabai -m signal --add event=display_removed action="$HOME/.config/yabai/rules-msg.sh"
 yabai -m rule --add app="^(Figma|Obsidian)$" space=5
 
 echo "yabai configuration loaded"
