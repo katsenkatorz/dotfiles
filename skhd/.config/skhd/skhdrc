@@ -39,13 +39,13 @@ ctrl + alt - l : yabai -m window --resize right:40:0 || yabai -m window --resize
 ctrl + alt - k : yabai -m window --resize top:0:-40 || yabai -m window --resize bottom:0:-40
 ctrl + alt - j : yabai -m window --resize bottom:0:40 || yabai -m window --resize top:0:40
 
-# Focus space N (scripting addition, else native ctrl+N fallback)
-alt - 1 : yabai -m space --focus 1 || skhd -k "ctrl - 1"
-alt - 2 : yabai -m space --focus 2 || skhd -k "ctrl - 2"
-alt - 3 : yabai -m space --focus 3 || skhd -k "ctrl - 3"
-alt - 4 : yabai -m space --focus 4 || skhd -k "ctrl - 4"
-alt - 5 : yabai -m space --focus 5 || skhd -k "ctrl - 5"
-alt - 6 : yabai -m space --focus 6 || skhd -k "ctrl - 6"
+# Focus space N (scripting addition)
+alt - 1 : yabai -m space --focus 1
+alt - 2 : yabai -m space --focus 2
+alt - 3 : yabai -m space --focus 3
+alt - 4 : yabai -m space --focus 4
+alt - 5 : yabai -m space --focus 5
+alt - 6 : yabai -m space --focus 6
 
 # Send window to space N and follow (scripting addition only)
 shift + alt - 1 : yabai -m window --space 1; yabai -m space --focus 1
