@@ -137,7 +137,8 @@ local weather = sbar.add("item", "weather", {
 })
 
 weather:subscribe({ "routine", "forced", "system_woke" }, function()
-  sbar.exec([[curl -s --max-time 10 'https://wttr.in/?format=%c%t' | tr -d '+']], function(out)
+  -- City pinned: IP geolocation resolves the ISP exit (Paris), not home.
+  sbar.exec([[curl -s --max-time 10 'https://wttr.in/Angers?format=%c%t' | tr -d '+']], function(out)
     out = tostring(out or ""):gsub("%s+$", "")
     if out ~= "" and not out:find("Unknown") and not out:find("Sorry") then
       weather:set({ drawing = true, label = out })
