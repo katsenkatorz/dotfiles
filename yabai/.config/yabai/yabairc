@@ -44,5 +44,6 @@ yabai -m rule --add app="^(PhpStorm|WebStorm|Xcode)$" space=3
 yabai -m signal --add event=display_added action="$HOME/.config/yabai/rules-msg.sh"
 yabai -m signal --add event=display_removed action="$HOME/.config/yabai/rules-msg.sh"
 yabai -m rule --add app="^(Figma|Obsidian)$" space=5
+yabai -m rule --add app="^Google Chrome$" space=7
 
 echo "yabai configuration loaded"
