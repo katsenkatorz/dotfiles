@@ -2,7 +2,7 @@
 
 # JankyBorders config, read by `borders` when launched without arguments
 # (brew services start felixkratz/formulae/borders).
-# Sonokai palette, aligned with the SketchyBar config (FelixKratz dotfiles).
+# Sonokai palette (FelixKratz dotfiles).
 
 # order=below keeps Mission Control animations clean (above-borders lag
 # behind the window snapshots). The native 1px outline stays visible but
