@@ -55,33 +55,17 @@ FORMULAE=(
   lazygit lazydocker glab
   # Agents (herdr : sessions persistantes pour agents de code)
   herdr
-  # Desktop (media-control : Now Playing ; lua : config SbarLua de SketchyBar)
-  media-control lua
 )
 info "Installation/mise à jour des paquets brew..."
 brew install "${FORMULAE[@]}" 2>/dev/null || true
 ok "Paquets brew OK"
 
-# JankyBorders + SketchyBar (FelixKratz) : tap tiers, doit etre trusted d'abord
-info "Installation de JankyBorders et SketchyBar..."
+# JankyBorders (FelixKratz) : tap tiers, doit etre trusted d'abord
+info "Installation de JankyBorders..."
 brew tap felixkratz/formulae 2>/dev/null || true
 brew trust felixkratz/formulae 2>/dev/null || true
-brew install borders sketchybar 2>/dev/null || true
-ok "JankyBorders et SketchyBar OK"
-
-# SbarLua (bridge Lua de SketchyBar) + police d'icones d'apps
-if [ ! -f "$HOME/.local/share/sketchybar_lua/sketchybar.so" ]; then
-  info "Compilation de SbarLua..."
-  git clone --depth 1 https://github.com/FelixKratz/SbarLua.git /tmp/SbarLua-build
-  (cd /tmp/SbarLua-build && make install)
-  rm -rf /tmp/SbarLua-build
-fi
-if [ ! -f "$HOME/Library/Fonts/sketchybar-app-font.ttf" ]; then
-  info "Téléchargement de sketchybar-app-font..."
-  curl -sL -o "$HOME/Library/Fonts/sketchybar-app-font.ttf" \
-    https://github.com/kvndrsslr/sketchybar-app-font/releases/latest/download/sketchybar-app-font.ttf
-fi
-ok "SbarLua et police d'icônes OK"
+brew install borders 2>/dev/null || true
+ok "JankyBorders OK"
 
 # yabai + skhd (koekeishiya) : tiling WM + raccourcis, permission Accessibilite requise
 info "Installation de yabai et skhd..."
@@ -93,7 +77,7 @@ ok "yabai et skhd OK"
 # ---------------------------------------------------------------------------
 # 4. Casks & Nerd Font
 # ---------------------------------------------------------------------------
-CASKS=(font-fira-code-nerd-font ghostty gcloud-cli bazecor homerow)
+CASKS=(font-fira-code-nerd-font ghostty gcloud-cli bazecor homerow spaceman)
 for cask in "${CASKS[@]}"; do
   if brew list --cask "$cask" &>/dev/null; then
     ok "$cask déjà installé"
@@ -143,7 +127,7 @@ info "Lancement de GNU Stow..."
 cd "$DOTFILES_DIR"
 
 # fish, ghostty, starship : stow classique
-for module in fish ghostty starship borders herdr sketchybar yabai skhd; do
+for module in fish ghostty starship borders herdr yabai skhd; do
   stow -v -d "$DOTFILES_DIR" -t "$HOME" "$module" 2>&1 | while read -r line; do
     info "  stow $module: $line"
   done
@@ -177,15 +161,9 @@ info "Démarrage du service Herdr..."
 brew services start herdr 2>/dev/null || true
 ok "Herdr démarré"
 
-# SketchyBar en service (lit ~/.config/sketchybar/, symlinke ci-dessus)
-info "Démarrage du service SketchyBar..."
-brew services start felixkratz/formulae/sketchybar 2>/dev/null || true
-ok "SketchyBar démarré"
-
-# Masquer la barre de menu native (SketchyBar la remplace)
-defaults write NSGlobalDomain _HIHideMenuBar -bool true
-killall SystemUIServer 2>/dev/null || true
-ok "Barre de menu native masquée"
+# Spaceman affiche les Spaces dans la barre native (lancement au login
+# a activer dans ses preferences au premier lancement)
+open -a Spaceman 2>/dev/null || true
 
 # yabai + skhd en service (echouent tant que la permission Accessibilite
 # n'est pas accordee dans Reglages > Confidentialite > Accessibilite)
