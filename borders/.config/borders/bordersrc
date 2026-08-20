@@ -11,8 +11,8 @@ options=(
   width=10.0
   order=above
   hidpi=on
-  active_color=0xff00ffe0
-  inactive_color=0xff414550
+  active_color=0xff24eaf7
+  inactive_color=0xff214969
 )
 
 borders "${options[@]}"
