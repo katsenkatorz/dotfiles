@@ -13,5 +13,12 @@ show_agent_labels_on_pane_borders = true
 delivery = "terminal"
 
 [theme]
-name = "catppuccin"
+# "terminal" adopts the host terminal palette (Ghostty night-owl theme)
+name = "terminal"
 auto_switch = false
+
+[theme.custom]
+# Let the Ghostty background show through, cyan accent matching the
+# JankyBorders active border
+panel_bg = "reset"
+accent = "#24EAF7"
