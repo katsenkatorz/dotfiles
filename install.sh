@@ -77,7 +77,7 @@ ok "yabai et skhd OK"
 # ---------------------------------------------------------------------------
 # 4. Casks & Nerd Font
 # ---------------------------------------------------------------------------
-CASKS=(font-fira-code-nerd-font ghostty gcloud-cli bazecor homerow spaceman)
+CASKS=(font-fira-code-nerd-font font-jetbrains-mono-nerd-font ghostty gcloud-cli bazecor homerow spaceman)
 for cask in "${CASKS[@]}"; do
   if brew list --cask "$cask" &>/dev/null; then
     ok "$cask déjà installé"
