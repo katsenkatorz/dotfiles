@@ -10,7 +10,7 @@ desktop-notifications = true
 theme = Catppuccin mocha
 font-family = FiraCode
 font-size = 14
-background = #143652
+background = #0F0A1C
 
 # Surcharge pour améliorer la lisibilité des erreurs Symfony
 # Rouge plus foncé pour le fond des erreurs
