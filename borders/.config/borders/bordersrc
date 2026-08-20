@@ -4,13 +4,12 @@
 # (brew services start felixkratz/formulae/borders).
 # Sonokai palette (FelixKratz dotfiles).
 
-# order=below keeps Mission Control animations clean (above-borders lag
-# behind the window snapshots). The native 1px outline stays visible but
-# blends with the off-white active color of this palette.
+# order=above keeps Mission Control animations clean (above-borders lag
+# Mission Control animation artefact is the accepted trade-off.
 options=(
   style=round
   width=10.0
-  order=below
+  order=above
   hidpi=on
   active_color=0xff76cce0
   inactive_color=0xff414550
