@@ -18,7 +18,13 @@ name = "terminal"
 auto_switch = false
 
 [theme.custom]
-# Let the Ghostty background show through, cyan accent matching the
-# JankyBorders active border
-panel_bg = "reset"
+# Cyan accent matching the JankyBorders active border, night-owl surface
+# stack: panels slightly lighter than the Ghostty background, readable
+# muted text
 accent = "#24EAF7"
+panel_bg = "#041B30"
+surface0 = "#0D2E4A"
+surface1 = "#164263"
+surface_dim = "#051C2F"
+text = "#CBE0F0"
+subtext0 = "#7FA6C4"
