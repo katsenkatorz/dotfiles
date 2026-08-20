@@ -7,8 +7,8 @@ desktop-notifications = true
 #~~~~~~~~~~~~~~~~~~~~~~~#
 #theme
 #~~~~~~~~~~~~~~~~~~~~~~~#
-font-family = JetBrainsMono Nerd Font Mono
-font-size = 13
+font-family = FiraCode
+font-size = 14
 
 window-padding-x = 10
 window-padding-y = 10
