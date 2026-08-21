@@ -7,7 +7,7 @@
 
 YABAI=/opt/homebrew/bin/yabai
 MSG_DISPLAY_UUID="37D8832A-2D66-02CA-B9F7-8F30A301B230"
-APPS="^(Discord|Telegram|Microsoft Teams)$"
+APPS="^(Discord|Telegram|Microsoft Teams|Claude)$"
 FALLBACK_SPACE=4
 
 TARGET=$("$YABAI" -m query --displays | /usr/bin/python3 -c "
@@ -28,5 +28,5 @@ for w in json.load(sys.stdin):
     if re.match(r'$APPS', w['app']):
         print(w['id'])
 " | while read -r wid; do
-  "$YABAI" -m window "$wid" --space "$TARGET"
+  "$YABAI" -m window "$wid" --space "$TARGET" 2>/dev/null || true
 done
