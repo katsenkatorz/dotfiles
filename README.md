@@ -37,7 +37,7 @@ Casks : Bazecor, Homerow, Spaceman.
 ```
 ~/dotfiles/
 ├── install.sh                   # Script d'installation idempotent
-├── nvim/.config/nvim/lua/       # Customisations LazyVim (starter cloné par install.sh)
+├── nvim/.config/nvim/           # Config LazyVim complète (cf. nvim/TUTO.md)
 ├── fish/.config/fish/           # config.fish, conf.d/ (dont herdr.fish), fish_plugins
 ├── starship/.config/            # Prompt Starship
 ├── ghostty/.config/ghostty/     # Font FiraCode Nerd Font

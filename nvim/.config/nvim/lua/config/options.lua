@@ -1,11 +1,19 @@
--- Options are automatically loaded before lazy.nvim startup
--- Default options that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
--- Add any additional options here
+-- Options loaded before lazy.nvim startup.
+-- LazyVim defaults: https://www.lazyvim.org/configuration/general
+local opt = vim.opt
 
-vim.opt.number = true
-vim.opt.relativenumber = true
-vim.opt.expandtab = true
-vim.opt.shiftwidth = 2
-vim.opt.tabstop = 2
-vim.opt.scrolloff = 8
-vim.opt.wrap = false
+opt.scrolloff = 8
+opt.relativenumber = true
+opt.wrap = false
+
+-- 2-space indents everywhere (Biome/ultracite convention in every repo here)
+opt.shiftwidth = 2
+opt.tabstop = 2
+opt.expandtab = true
+
+-- macOS system clipboard is the default register
+opt.clipboard = "unnamedplus"
+
+-- Prettier only runs in projects that carry a prettier config;
+-- everywhere else Biome (the house formatter) owns formatting
+vim.g.lazyvim_prettier_needs_config = true
