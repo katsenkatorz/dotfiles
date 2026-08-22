@@ -1,10 +1,12 @@
--- Keymaps are automatically loaded on the VeryLazy event
--- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
--- Add any additional keymaps here
---
-vim.g.mapleader = " "
-local map = vim.api.nvim_set_keymap
-local opts = { noremap = true, silent = true }
+-- Extra keymaps on top of LazyVim defaults:
+-- https://www.lazyvim.org/keymaps
+local map = vim.keymap.set
 
-map("n", "<leader>w", ":w<CR>", opts) -- <leader>w pour sauvegarder
-map("n", "<leader>q", ":q<CR>", opts) -- <leader>q pour quitter
+-- Keep the cursor centered while jumping half-pages / search results
+map("n", "<C-d>", "<C-d>zz", { desc = "Half page down (centered)" })
+map("n", "<C-u>", "<C-u>zz", { desc = "Half page up (centered)" })
+map("n", "n", "nzzzv", { desc = "Next search result (centered)" })
+map("n", "N", "Nzzzv", { desc = "Prev search result (centered)" })
+
+-- Paste over a selection without clobbering the yank register
+map("x", "<leader>p", [["_dP]], { desc = "Paste without yanking" })

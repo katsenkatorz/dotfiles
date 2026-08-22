@@ -107,27 +107,16 @@ backup_if_exists "$HOME/.config/starship.toml"
 backup_if_exists "$HOME/Library/Application Support/com.mitchellh.ghostty/config"
 
 # ---------------------------------------------------------------------------
-# 6. Installer LazyVim starter
-# ---------------------------------------------------------------------------
-if [[ ! -f "$HOME/.config/nvim/init.lua" ]]; then
-  info "Clonage du starter LazyVim..."
-  backup_if_exists "$HOME/.config/nvim"
-  git clone https://github.com/LazyVim/starter "$HOME/.config/nvim"
-  rm -rf "$HOME/.config/nvim/.git"
-  ok "Starter LazyVim installé"
-else
-  ok "Neovim config existante détectée (starter déjà en place)"
-fi
-
-# ---------------------------------------------------------------------------
-# 7. GNU Stow
+# 6. GNU Stow
 # ---------------------------------------------------------------------------
 info "Lancement de GNU Stow..."
 
 cd "$DOTFILES_DIR"
 
-# fish, ghostty, starship : stow classique
-for module in fish ghostty starship borders herdr yabai skhd; do
+# nvim : la config LazyVim complète vit dans le repo, stow classique comme le reste
+backup_if_exists "$HOME/.config/nvim"
+
+for module in fish ghostty starship borders herdr yabai skhd nvim; do
   stow -v -d "$DOTFILES_DIR" -t "$HOME" "$module" 2>&1 | while read -r line; do
     info "  stow $module: $line"
   done
@@ -138,16 +127,6 @@ GHOSTTY_APP_SUPPORT="$HOME/Library/Application Support/com.mitchellh.ghostty"
 mkdir -p "$GHOSTTY_APP_SUPPORT"
 ln -sf "$HOME/.config/ghostty/config" "$GHOSTTY_APP_SUPPORT/config"
 ok "Symlink Ghostty → Application Support"
-
-# nvim : --adopt pour fusionner avec le starter existant
-stow -v --adopt -d "$DOTFILES_DIR" -t "$HOME" nvim 2>&1 | while read -r line; do
-  info "  stow nvim: $line"
-done
-
-# Après --adopt, les fichiers dans le repo ont été remplacés par ceux du système.
-# On restaure les nôtres depuis git.
-cd "$DOTFILES_DIR"
-git checkout -- nvim/ 2>/dev/null || true
 
 ok "Stow terminé"
 
