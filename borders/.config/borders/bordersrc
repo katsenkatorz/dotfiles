@@ -4,12 +4,12 @@
 # (brew services start felixkratz/formulae/borders).
 # Sonokai palette (FelixKratz dotfiles).
 
-# order=above keeps Mission Control animations clean (above-borders lag
+# order=below keeps Mission Control animations clean (above-borders lag
 # Mission Control animation artefact is the accepted trade-off.
 options=(
   style=round
   width=10.0
-  order=above
+  order=below
   hidpi=on
   active_color=0xff24eaf7
   inactive_color=0xff214969
