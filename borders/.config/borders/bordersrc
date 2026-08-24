@@ -8,7 +8,7 @@
 # Mission Control animation artefact is the accepted trade-off.
 options=(
   style=round
-  width=10.0
+  width=2.0
   order=below
   hidpi=on
   active_color=0xff24eaf7
