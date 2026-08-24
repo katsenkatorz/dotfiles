@@ -37,6 +37,9 @@ yabai -m rule --add app="^(Steam|Battle\.net|World of Warcraft|Diablo III|CurseF
 # One space per usage on the main display (spaces created manually:
 # space creation through the scripting addition is broken on this macOS)
 yabai -m rule --add app="^Arc$" space=1
+# Little Arc popups stay floating on the current space (size-based
+# created-window watcher, see little-arc.sh)
+yabai -m signal --add event=window_created app="^Arc$" action="$HOME/.config/yabai/little-arc.sh"
 yabai -m rule --add app="^Ghostty$" space=2
 yabai -m rule --add app="^(PhpStorm|WebStorm|Xcode)$" space=3
 # Messaging follows the MacBook display when present (see rules-msg.sh)
