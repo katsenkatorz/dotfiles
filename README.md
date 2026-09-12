@@ -3,7 +3,7 @@
 Environnement macOS complet, géré avec [GNU Stow](https://www.gnu.org/software/stow/) :
 Ghostty + Fish + LazyVim côté terminal, yabai + skhd + JankyBorders côté desktop
 (tiling clavier-first, barre de menu native + Spaceman pour les Spaces),
-Homerow pour cliquer au clavier, herdr pour les sessions d'agents persistantes,
+herdr pour les sessions d'agents persistantes,
 et le backup du clavier Dygma Defy.
 
 ## Installation
@@ -17,7 +17,7 @@ cd ~/dotfiles
 Le script est **idempotent** : tu peux le relancer sans risque, il ne réinstalle et n'écrase rien.
 
 Deux étapes restent manuelles sur une machine neuve (voir plus bas) :
-les permissions **Accessibilité** (yabai, skhd, Homerow), et la **scripting
+les permissions **Accessibilité** (yabai, skhd), et la **scripting
 addition** de yabai (désactivation partielle de SIP en recovery).
 
 ## Prérequis
@@ -30,7 +30,7 @@ Le reste est installé automatiquement par `install.sh` :
 neovim, lazygit, lazydocker, ripgrep, fd, fzf, node, coreutils, bottom, stow,
 gh, herdr, FiraCode Nerd Font, et depuis les taps tiers (trustés par le
 script) : borders (felixkratz/formulae), yabai + skhd (koekeishiya/formulae).
-Casks : Bazecor, Homerow, Spaceman.
+Casks : Bazecor, Spaceman.
 
 ## Structure du repo
 
@@ -65,7 +65,7 @@ native (activer "Launch at login" dans ses préférences au premier lancement).
 
 ### Permissions (machine neuve)
 
-yabai, skhd et Homerow exigent la permission **Accessibilité**
+yabai et skhd exigent la permission **Accessibilité**
 (Réglages > Confidentialité et sécurité > Accessibilité), puis
 `yabai --restart-service` et `skhd --restart-service`.
 
@@ -123,16 +123,11 @@ Bordures Sonokai (actif blanc cassé, inactif gris), `order=below` pour garder
 l'animation Mission Control propre. Config : `borders/.config/borders/bordersrc`,
 appliquer avec `brew services restart felixkratz/formulae/borders`.
 
-### Homerow
-
-Clic au clavier : un raccourci fait apparaître des étiquettes sur tout élément
-cliquable. Déclenché par `⌘+Shift+Espace` (touche pouce dédiée sur le Defy).
-
 ## Dygma Defy
 
 Layout stocké dans l'EEPROM du clavier ; `bazecor/defy-backup.json` est le
 backup complet du Neuron (voir `bazecor/README.md` pour restaurer/resynchroniser).
-Layer 4 = fenêtres (chords `alt+` vers skhd/yabai), touche pouce = Homerow.
+Layer 4 = fenêtres (chords `alt+` vers skhd/yabai).
 
 ## herdr
 
@@ -146,7 +141,7 @@ existant (dont les worktrees Claude Code).
 
 1. **Relance Ghostty** pour charger la font (herdr s'attache automatiquement)
 2. **Lance `nvim`** : LazyVim installe ses plugins au premier démarrage
-3. **Accorde l'Accessibilité** à yabai, skhd et Homerow, relance les services
+3. **Accorde l'Accessibilité** à yabai et skhd, relance les services
 4. **Scripting addition** : déroule le runbook SIP ci-dessus pour les Spaces au clavier
 5. **Spaceman** : active "Launch at login" dans ses préférences
 6. **Dygma Defy** : restaure `bazecor/defy-backup.json` via Bazecor si besoin

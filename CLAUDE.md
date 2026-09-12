@@ -5,7 +5,7 @@
 Repo dotfiles macOS géré avec GNU Stow. Deux volets :
 - Terminal : Ghostty + Fish + Starship + LazyVim.
 - Desktop : yabai + skhd (tiling clavier), barre de menu native + Spaceman
-  (affichage des Spaces), JankyBorders, Homerow (clic clavier), herdr
+  (affichage des Spaces), JankyBorders, herdr
   (sessions agents persistantes), clavier Dygma Defy (backup Bazecor versionné).
 
 SketchyBar a été essayée puis retirée le 2026-08-19 (widgets custom bugués) :
@@ -57,4 +57,4 @@ boucle Stow d'install.sh. Pour nvim : ne versionner que les customisations
 Brew : neovim lazygit lazydocker ripgrep fd fzf node coreutils bottom stow gh
 herdr + taps trustés felixkratz/formulae (borders) et koekeishiya/formulae
 (yabai, skhd). Casks : font-fira-code-nerd-font, ghostty, gcloud-cli, bazecor,
-homerow, spaceman.
+spaceman.
