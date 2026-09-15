@@ -40,6 +40,9 @@ boucle Stow d'install.sh.
 - **macOS uniquement** : `gmd5sum` (coreutils) au lieu de `md5sum`
 - **Thème** : Catppuccin Mocha partout, pas de palette maison
 - **Recharger après modif** : `herdr server reload-config`
+- **Skill herdr Claude Code** : régénéré par `install.sh`
+  (`herdr --skill` vers `~/.claude/skills/herdr/SKILL.md`), jamais versionné ici :
+  le binaire fait foi pour la syntaxe de son CLI
 - **Backup Defy** : après un save Bazecor, copier le plus récent de
   `~/Dygma/Backups/Defy/<id>/` vers `bazecor/defy-backup.json` et committer
 

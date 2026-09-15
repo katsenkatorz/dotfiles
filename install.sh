@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # =============================================================================
-# install.sh — Dotfiles installer (idempotent)
+# install.sh : Dotfiles installer (idempotent)
 # =============================================================================
 
 DOTFILES_DIR="$HOME/dotfiles"
@@ -139,7 +139,21 @@ if [[ -f "$HOME/.config/fish/fish_plugins" ]]; then
 fi
 
 # ---------------------------------------------------------------------------
-# 9. Résumé
+# 9. Skill herdr pour Claude Code
+# ---------------------------------------------------------------------------
+# Le binaire fait foi pour la syntaxe de son CLI : on regenere le skill a chaque
+# install plutot que de versionner une copie qui derive a la prochaine version.
+if command -v herdr >/dev/null 2>&1; then
+  info "Synchronisation du skill herdr pour Claude Code..."
+  mkdir -p "$HOME/.claude/skills/herdr"
+  herdr --skill > "$HOME/.claude/skills/herdr/SKILL.md"
+  ok "Skill herdr synchronise ($(herdr --version))"
+else
+  warn "herdr introuvable : skill Claude Code non synchronise"
+fi
+
+# ---------------------------------------------------------------------------
+# 10. Résumé
 # ---------------------------------------------------------------------------
 echo ""
 echo -e "${GREEN}============================================${NC}"
@@ -148,7 +162,7 @@ echo -e "${GREEN}============================================${NC}"
 echo ""
 echo -e "Étapes manuelles restantes :"
 echo -e "  ${BLUE}1.${NC} Relance Ghostty pour prendre la nouvelle font"
-echo -e "  ${BLUE}2.${NC} Lance ${YELLOW}nvim${NC} — LazyVim installera ses plugins au premier démarrage"
+echo -e "  ${BLUE}2.${NC} Lance ${YELLOW}nvim${NC} : LazyVim installera ses plugins au premier démarrage"
 echo -e "  ${BLUE}3.${NC} Dans nvim, lance ${YELLOW}:checkhealth${NC} pour vérifier"
 echo -e "  ${BLUE}4.${NC} Crée ${YELLOW}~/.config/fish/conf.d/secrets.fish${NC} pour tes tokens/credentials"
 echo ""

@@ -64,6 +64,14 @@ main : `herdr` démarre le serveur s'il ne tourne pas et attache la session
 `Ctrl+B ?` liste les raccourcis ; `Ctrl+B Shift+O` ouvre un worktree git
 existant (dont les worktrees Claude Code).
 
+`install.sh` synchronise aussi le skill Claude Code de herdr
+(`herdr --skill` vers `~/.claude/skills/herdr/SKILL.md`) : c'est le binaire qui
+fait foi pour la syntaxe du CLI, donc le skill est regenere a chaque install
+plutot que versionne ici. Il donne aux agents le pilotage des panes, tabs,
+workspaces et des autres agents (`herdr pane split`, `herdr pane run`,
+`herdr agent prompt --wait`), et ne s'active que dans un pane herdr
+(`HERDR_ENV=1`).
+
 ## Après l'installation
 
 1. **Relance Ghostty** pour charger la font, puis `herdr` pour ouvrir la session d'agents
