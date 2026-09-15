@@ -32,7 +32,7 @@ gh, herdr, FiraCode Nerd Font. Casks : Bazecor, Spaceman.
 ~/dotfiles/
 ├── install.sh                   # Script d'installation idempotent
 ├── nvim/.config/nvim/           # Config LazyVim complète (cf. nvim/TUTO.md)
-├── fish/.config/fish/           # config.fish, conf.d/ (dont herdr.fish), fish_plugins
+├── fish/.config/fish/           # config.fish, conf.d/, fish_plugins
 ├── starship/.config/            # Prompt Starship (catppuccin_mocha)
 ├── ghostty/.config/ghostty/     # Catppuccin Mocha, FiraCode Nerd Font
 ├── herdr/.config/herdr/         # Sessions persistantes agents (thème, keybindings)
@@ -50,7 +50,6 @@ le repo le rend actif immédiatement. Commit + push pour sauvegarder.
 Pas de gestionnaire de fenêtres : yabai + skhd + JankyBorders ont été retirés
 le 2026-09-15. Spaceman affiche les Spaces dans la barre de menu native
 (activer "Launch at login" dans ses préférences au premier lancement).
-`herdr` tourne en service au login via `brew services`.
 
 ## Dygma Defy
 
@@ -59,15 +58,15 @@ backup complet du Neuron (voir `bazecor/README.md` pour restaurer/resynchroniser
 
 ## herdr
 
-Serveur de sessions persistantes pour agents (Claude Code, etc.), en service
-au login. `fish/conf.d/herdr.fish` attache automatiquement la session dans
-tout shell interactif (garde anti-récursion sur `HERDR_ENV`). Prefix `Ctrl+B` ;
+Serveur de sessions persistantes pour agents (Claude Code, etc.), lancé à la
+main : `herdr` démarre le serveur s'il ne tourne pas et attache la session
+(ni service au login, ni attache automatique dans fish). Prefix `Ctrl+B` ;
 `Ctrl+B ?` liste les raccourcis ; `Ctrl+B Shift+O` ouvre un worktree git
 existant (dont les worktrees Claude Code).
 
 ## Après l'installation
 
-1. **Relance Ghostty** pour charger la font (herdr s'attache automatiquement)
+1. **Relance Ghostty** pour charger la font, puis `herdr` pour ouvrir la session d'agents
 2. **Lance `nvim`** : LazyVim installe ses plugins au premier démarrage
 3. **Spaceman** : active "Launch at login" dans ses préférences
 4. **Dygma Defy** : restaure `bazecor/defy-backup.json` via Bazecor si besoin

@@ -116,11 +116,6 @@ ok "Symlink Ghostty → Application Support"
 
 ok "Stow terminé"
 
-# Herdr en service (serveur de sessions persistantes pour agents)
-info "Démarrage du service Herdr..."
-brew services start herdr 2>/dev/null || true
-ok "Herdr démarré"
-
 # Spaceman affiche les Spaces dans la barre native (lancement au login
 # a activer dans ses preferences au premier lancement)
 open -a Spaceman 2>/dev/null || true

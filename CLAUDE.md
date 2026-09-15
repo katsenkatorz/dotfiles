@@ -6,7 +6,9 @@ Repo dotfiles macOS géré avec GNU Stow. Deux volets :
 - Terminal : Ghostty + Fish + Starship + LazyVim, thème Catppuccin Mocha partout
   (Ghostty, herdr, Neovim, Starship).
 - Desktop : barre de menu native + Spaceman (affichage des Spaces), herdr
-  (sessions agents persistantes), clavier Dygma Defy (backup Bazecor versionné).
+  (sessions agents persistantes, lancé à la main : ni service au login ni
+  attache auto dans fish depuis le 2026-09-15), clavier Dygma Defy (backup
+  Bazecor versionné).
 
 Retirés, ne pas les réintroduire sans demande explicite de Jeff :
 - SketchyBar, le 2026-08-19 (widgets custom bugués).
@@ -19,7 +21,7 @@ Retirés, ne pas les réintroduire sans demande explicite de Jeff :
 ~/dotfiles/
 ├── install.sh                   # Script idempotent (brew, stow, services)
 ├── nvim/.config/nvim/           # Config LazyVim complète versionnée (cf. nvim/TUTO.md)
-├── fish/.config/fish/           # config.fish, conf.d/ (herdr.fish = auto-attach), fish_plugins
+├── fish/.config/fish/           # config.fish, conf.d/, fish_plugins
 ├── starship/.config/
 ├── ghostty/.config/ghostty/
 ├── herdr/.config/herdr/config.toml
