@@ -1,14 +1,16 @@
--- Night Owl: matches the Ghostty / herdr terminal theme (#00111E background)
+-- Catppuccin Mocha: matches Ghostty, herdr and Starship (catppuccin plugin ships with LazyVim)
 return {
   {
-    "oxfist/night-owl.nvim",
-    lazy = false,
-    priority = 1000,
+    "catppuccin/nvim",
+    name = "catppuccin",
+    opts = {
+      flavour = "mocha",
+    },
   },
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "night-owl",
+      colorscheme = "catppuccin",
     },
   },
 }

@@ -6,7 +6,7 @@ Config LazyVim complète, versionnée ici et symlinkée par Stow vers
 - Apprentissage et référence : [TUTO.md](TUTO.md)
 - Extras gérés dans `lazyvim.json` (`:LazyExtras`)
 - Plugins lockés dans `lazy-lock.json` : committer après chaque `:Lazy sync`
-- Thème night-owl, aligné sur Ghostty / herdr (#011627)
+- Thème Catppuccin Mocha, aligné sur Ghostty / herdr / Starship
 - LSP : vtsls, biome, tailwindcss, phpactor, lua-ls... installés par Mason
   au premier lancement (`:Mason` pour la liste)
 
@@ -19,7 +19,7 @@ Config LazyVim complète, versionnée ici et symlinkée par Stow vers
 ├── lazy-lock.json           # lock des plugins
 └── lua/
     ├── config/              # options, keymaps, autocmds, lazy bootstrap
-    └── plugins/             # colorscheme (night-owl), editor (undotree)
+    └── plugins/             # colorscheme (catppuccin mocha), editor (undotree)
 ```
 
 Piège : le CLI `tree-sitter` requis par nvim-treesitter (branche main) est

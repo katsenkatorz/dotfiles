@@ -26,7 +26,7 @@ require("lazy").setup({
     lazy = false,
     version = false, -- latest git commit: recommended by LazyVim over semver releases
   },
-  install = { colorscheme = { "night-owl", "habamax" } },
+  install = { colorscheme = { "catppuccin", "habamax" } },
   checker = {
     enabled = true,
     notify = false,

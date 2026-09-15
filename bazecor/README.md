@@ -13,5 +13,6 @@ sert qu'à la restauration.
   et committer.
 
 Layout courant (2026-08-19) : base QWERTY US-Intl, pouce gauche avec
-Layer Shift 4 (fenêtres yabai, chords alt+) et 5 (libre), grosse touche
+Layer Shift 4 (chords alt+, ex-fenêtres yabai, sans usage depuis le retrait
+du WM le 2026-09-15) et 5 (libre), grosse touche
 en cours de refonte dual ⌘/Backspace, superkey 1 copier/coller.

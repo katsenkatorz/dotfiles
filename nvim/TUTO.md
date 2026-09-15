@@ -41,7 +41,7 @@ cinquantaine de plugins qui font consensus. Les défauts 2026 :
 
 ### Nos ajouts maison
 
-- Thème **night-owl** (cohérent avec Ghostty et herdr, fond #011627)
+- Thème **Catppuccin Mocha** (cohérent avec Ghostty, herdr et Starship)
 - `Ctrl-d` / `Ctrl-u` / `n` / `N` : le curseur reste centré à l'écran
 - `<espace>p` (en visuel) : coller SANS écraser le registre de copie
 - `<espace>U` : undotree, l'historique d'annulation en arbre

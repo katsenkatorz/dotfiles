@@ -60,20 +60,6 @@ info "Installation/mise à jour des paquets brew..."
 brew install "${FORMULAE[@]}" 2>/dev/null || true
 ok "Paquets brew OK"
 
-# JankyBorders (FelixKratz) : tap tiers, doit etre trusted d'abord
-info "Installation de JankyBorders..."
-brew tap felixkratz/formulae 2>/dev/null || true
-brew trust felixkratz/formulae 2>/dev/null || true
-brew install borders 2>/dev/null || true
-ok "JankyBorders OK"
-
-# yabai + skhd (koekeishiya) : tiling WM + raccourcis, permission Accessibilite requise
-info "Installation de yabai et skhd..."
-brew tap koekeishiya/formulae 2>/dev/null || true
-brew trust koekeishiya/formulae 2>/dev/null || true
-brew install yabai skhd 2>/dev/null || true
-ok "yabai et skhd OK"
-
 # ---------------------------------------------------------------------------
 # 4. Casks & Nerd Font
 # ---------------------------------------------------------------------------
@@ -116,7 +102,7 @@ cd "$DOTFILES_DIR"
 # nvim : la config LazyVim complète vit dans le repo, stow classique comme le reste
 backup_if_exists "$HOME/.config/nvim"
 
-for module in fish ghostty starship borders herdr yabai skhd nvim; do
+for module in fish ghostty starship herdr nvim; do
   stow -v -d "$DOTFILES_DIR" -t "$HOME" "$module" 2>&1 | while read -r line; do
     info "  stow $module: $line"
   done
@@ -130,11 +116,6 @@ ok "Symlink Ghostty → Application Support"
 
 ok "Stow terminé"
 
-# JankyBorders en service (lit ~/.config/borders/bordersrc, symlinke ci-dessus)
-info "Démarrage du service JankyBorders..."
-brew services start felixkratz/formulae/borders 2>/dev/null || true
-ok "JankyBorders démarré"
-
 # Herdr en service (serveur de sessions persistantes pour agents)
 info "Démarrage du service Herdr..."
 brew services start herdr 2>/dev/null || true
@@ -143,13 +124,6 @@ ok "Herdr démarré"
 # Spaceman affiche les Spaces dans la barre native (lancement au login
 # a activer dans ses preferences au premier lancement)
 open -a Spaceman 2>/dev/null || true
-
-# yabai + skhd en service (echouent tant que la permission Accessibilite
-# n'est pas accordee dans Reglages > Confidentialite > Accessibilite)
-info "Démarrage de yabai et skhd..."
-yabai --start-service 2>/dev/null || true
-skhd --start-service 2>/dev/null || true
-warn "Si premier lancement : accorder l'Accessibilité à yabai et skhd puis relancer les services"
 
 # ---------------------------------------------------------------------------
 # 8. Installer Fisher + plugins fish
