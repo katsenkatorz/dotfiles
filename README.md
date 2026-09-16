@@ -76,7 +76,16 @@ Deux fonctions fish accompagnent ce flux (`fish/.config/fish/functions/`) :
 `ag <nom> [chemin]` cree un tab dans le workspace courant et y demarre un
 agent claude nomme, `ags` liste les agents vus par herdr puis les sessions
 en arriere-plan, et `aga <id>` attache une de ces sessions dans un pane du
-workspace de SON dossier (il ouvre le workspace du worktree au besoin). Un agent doit NAITRE dans un pane :
+workspace de SON dossier (il ouvre le workspace du worktree au besoin).
+`agn` recale tout le monde sur son numero de ticket.
+
+Le numero vient du corps de la PR de la branche (`Refs #N` / `Closes #N`),
+avec repli sur le numero de PR. Il est pose en prefixe sur le tab
+(`#507 spec-body-pose`, `PR533 ...`) et sur le nom d'agent
+(`i507-spec-body-pose` : un nom d'agent herdr doit commencer par une
+lettre, `507-x` est refuse), et en SUFFIXE sur le workspace d'un worktree
+(`spec-body-pose-507`). `main`, `master` et `develop` sont exclus : la PR
+de release collerait son issue au checkout principal. Un agent doit NAITRE dans un pane :
 seul ce cas fait declarer son etat par Claude Code (colonne `declare` de
 `ags`). Une session dispatchee par `claude agents` puis rattachee avec
 `claude attach` reste visible mais son etat est devine en lisant l'ecran,

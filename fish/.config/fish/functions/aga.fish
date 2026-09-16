@@ -29,7 +29,17 @@ function aga --description "Attache un agent de fond dans un pane du workspace d
         echo "aga: workspace du dossier introuvable, repli sur $ws" >&2
     end
 
-    set -l pane (herdr tab create --workspace $ws --cwd "$dir" --label "$name" --no-focus | jq -r '.result.root_pane.pane_id')
+    set -l ticket (__herdr_ticket "$dir")
+    set -l label "$name"
+    if test -n "$ticket"
+        set label (__herdr_ticket_fmt $ticket label)" $name"
+        set -l linked (herdr workspace list | jq -r --arg w "$ws" '.result.workspaces[] | select(.workspace_id == $w) | .worktree.is_linked_worktree // false')
+        if test "$linked" = true
+            herdr workspace rename $ws (basename "$dir")"-"(__herdr_ticket_fmt $ticket suffix) >/dev/null 2>&1
+        end
+    end
+
+    set -l pane (herdr tab create --workspace $ws --cwd "$dir" --label "$label" --no-focus | jq -r '.result.root_pane.pane_id')
     if test -z "$pane" -o "$pane" = "null"
         echo "aga: creation du tab impossible" >&2
         return 1
