@@ -74,8 +74,9 @@ workspaces et des autres agents (`herdr pane split`, `herdr pane run`,
 
 Deux fonctions fish accompagnent ce flux (`fish/.config/fish/functions/`) :
 `ag <nom> [chemin]` cree un tab dans le workspace courant et y demarre un
-agent claude nomme, et `ags` liste les agents vus par herdr puis les sessions
-en arriere-plan qui n'ont pas de pane. Un agent doit NAITRE dans un pane :
+agent claude nomme, `ags` liste les agents vus par herdr puis les sessions
+en arriere-plan, et `aga <id>` attache une de ces sessions dans un pane du
+workspace de SON dossier (il ouvre le workspace du worktree au besoin). Un agent doit NAITRE dans un pane :
 seul ce cas fait declarer son etat par Claude Code (colonne `declare` de
 `ags`). Une session dispatchee par `claude agents` puis rattachee avec
 `claude attach` reste visible mais son etat est devine en lisant l'ecran,
