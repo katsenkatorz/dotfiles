@@ -4,7 +4,8 @@ function ags --description "Liste les agents claude vus par herdr, puis ceux en 
         | jq -r '.result.agents[] | [.pane_id, .agent_status, (if .agent_session.source then "declare" else "devine" end), .cwd] | @tsv' \
         | column -t -s (printf '\t')
 
-    set -l bg (claude agents --json 2>/dev/null | jq -r '.[] | [.id, .state, (.name // "-")] | @tsv')
+    # kind != background : une session interactive sort ici avec id et state nuls.
+    set -l bg (claude agents --json 2>/dev/null | jq -r '.[] | select(.kind == "background") | [.id, .state, (.name // "-")] | @tsv')
     if test -n "$bg"
         echo
         echo "Sessions en arriere-plan (claude attach <id> dans un pane pour les voir) :"
