@@ -72,6 +72,15 @@ workspaces et des autres agents (`herdr pane split`, `herdr pane run`,
 `herdr agent prompt --wait`), et ne s'active que dans un pane herdr
 (`HERDR_ENV=1`).
 
+Deux fonctions fish accompagnent ce flux (`fish/.config/fish/functions/`) :
+`ag <nom> [chemin]` cree un tab dans le workspace courant et y demarre un
+agent claude nomme, et `ags` liste les agents vus par herdr puis les sessions
+en arriere-plan qui n'ont pas de pane. Un agent doit NAITRE dans un pane :
+seul ce cas fait declarer son etat par Claude Code (colonne `declare` de
+`ags`). Une session dispatchee par `claude agents` puis rattachee avec
+`claude attach` reste visible mais son etat est devine en lisant l'ecran,
+donc un agent bloque peut s'y afficher comme termine.
+
 ## Après l'installation
 
 1. **Relance Ghostty** pour charger la font, puis `herdr` pour ouvrir la session d'agents
