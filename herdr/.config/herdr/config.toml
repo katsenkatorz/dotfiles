@@ -5,6 +5,12 @@ onboarding = false
 # Claude Code worktrees (.claude/worktrees/*) show up in this picker too.
 open_worktree = "prefix+shift+o"
 
+# Navigation entre agents (toute la famille est unbound par defaut upstream).
+# Sans elles, le panneau d'agents s'affiche mais rien n'y saute au clavier.
+next_agent = "prefix+a"
+previous_agent = "prefix+shift+a"
+focus_agent = "prefix+alt+1..9"
+
 [ui]
 agent_panel_sort = "priority"
 
