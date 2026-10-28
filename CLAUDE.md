@@ -49,4 +49,13 @@ boucle Stow d'install.sh.
 ## Dépendances
 
 Brew : neovim lazygit lazydocker ripgrep fd fzf node coreutils bottom stow gh
-herdr. Casks : font-fira-code-nerd-font, ghostty, gcloud-cli, bazecor, spaceman.
+herdr tuios. Casks : font-fira-code-nerd-font, ghostty, gcloud-cli, bazecor, spaceman,
+lazyworktree (tap externe `chmouel/lazyworktree`, cask marqué de confiance par
+`brew trust --cask`, jamais le tap entier).
+
+tuios (multiplexeur, essai depuis le 2026-10-28 à la place de herdr) :
+`install.sh` installe son intégration Claude Code
+(`tuios integration install claude-code` : hooks dans `~/.claude/settings.json`
++ skill `~/.claude/skills/tuios/`), retrait par `tuios integration uninstall
+claude-code`. lazyworktree tire tmux en dépendance brew : c'est voulu, tmux
+n'est pas réintroduit dans la config.

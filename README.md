@@ -24,7 +24,8 @@ Le script est **idempotent** : tu peux le relancer sans risque, il ne réinstall
 
 Le reste est installé automatiquement par `install.sh` :
 neovim, lazygit, lazydocker, ripgrep, fd, fzf, node, coreutils, bottom, stow,
-gh, herdr, FiraCode Nerd Font. Casks : Bazecor, Spaceman.
+gh, herdr, tuios, FiraCode Nerd Font. Casks : Bazecor, Spaceman, lazyworktree
+(tap `chmouel/lazyworktree`).
 
 ## Structure du repo
 

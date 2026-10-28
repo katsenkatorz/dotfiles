@@ -53,8 +53,8 @@ FORMULAE=(
   # Dev
   node php composer symfony-cli yarn docker docker-compose colima
   lazygit lazydocker glab
-  # Agents (herdr : sessions persistantes pour agents de code)
-  herdr
+  # Agents (herdr : sessions persistantes pour agents de code, tuios : alternative en test)
+  herdr tuios
 )
 info "Installation/mise à jour des paquets brew..."
 brew install "${FORMULAE[@]}" 2>/dev/null || true
@@ -73,6 +73,18 @@ for cask in "${CASKS[@]}"; do
     ok "$cask installé"
   fi
 done
+
+# lazyworktree is only published in its author's tap; Homebrew refuses to load
+# a cask from an untrusted tap, so trust that single cask, not the whole tap.
+if brew list --cask lazyworktree &>/dev/null; then
+  ok "lazyworktree déjà installé"
+else
+  info "Installation de lazyworktree (tap chmouel/lazyworktree)..."
+  brew tap chmouel/lazyworktree https://github.com/chmouel/lazyworktree
+  brew trust --cask chmouel/lazyworktree/lazyworktree
+  brew install --cask lazyworktree
+  ok "lazyworktree installé"
+fi
 
 # ---------------------------------------------------------------------------
 # 5. Sauvegarder les configs existantes
@@ -150,6 +162,20 @@ if command -v herdr >/dev/null 2>&1; then
   ok "Skill herdr synchronise ($(herdr --version))"
 else
   warn "herdr introuvable : skill Claude Code non synchronise"
+fi
+
+# Hooks + skill tuios dans ~/.claude : `install` garde les reglages existants,
+# sauvegarde settings.json en .tuios.bak et ne fait rien hors d'un pane tuios.
+if command -v tuios >/dev/null 2>&1; then
+  if tuios integration status claude-code 2>/dev/null | grep -q 'installed, current'; then
+    ok "Integration Claude Code de tuios deja a jour"
+  else
+    info "Installation de l'integration Claude Code de tuios..."
+    tuios integration install claude-code
+    ok "Integration Claude Code de tuios installee"
+  fi
+else
+  warn "tuios introuvable : integration Claude Code non installee"
 fi
 
 # ---------------------------------------------------------------------------
