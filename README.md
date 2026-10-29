@@ -37,6 +37,7 @@ gh, herdr, tuios, FiraCode Nerd Font. Casks : Bazecor, Spaceman, lazyworktree
 ├── starship/.config/            # Prompt Starship (catppuccin_mocha)
 ├── ghostty/.config/ghostty/     # Catppuccin Mocha, FiraCode Nerd Font
 ├── herdr/.config/herdr/         # Sessions persistantes agents (thème, keybindings)
+├── tuios/.config/tuios/         # Multiplexeur tuios (lié depuis Application Support)
 └── bazecor/                     # Backup Neuron du Dygma Defy (pas un module Stow)
 ```
 
@@ -56,6 +57,19 @@ le 2026-09-15. Spaceman affiche les Spaces dans la barre de menu native
 
 Layout stocké dans l'EEPROM du clavier ; `bazecor/defy-backup.json` est le
 backup complet du Neuron (voir `bazecor/README.md` pour restaurer/resynchroniser).
+
+## tuios
+
+Multiplexeur pour agents, en essai depuis le 2026-10-28 à la place de herdr.
+Il lit sa config dans `~/Library/Application Support/tuios/config.toml` :
+`install.sh` y crée un symlink vers `~/.config/tuios/config.toml` (module Stow),
+comme pour Ghostty. Seul le fichier est lié, jamais le dossier, où tuios range
+aussi ses worktrees et ses sessions. Les `tuios set-config` passent par le
+symlink et modifient donc le fichier du repo : committer après un réglage.
+
+Couleurs : `theme = "none"` reprend les couleurs de Ghostty (Catppuccin Mocha,
+fond `#0F0A1C`). C'est le seul mode où la vue Agents et les autres panneaux
+prennent la teinte du fond ; avec un thème nommé, ils restent en gris neutre.
 
 ## herdr
 

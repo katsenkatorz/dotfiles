@@ -114,7 +114,7 @@ cd "$DOTFILES_DIR"
 # nvim : la config LazyVim complète vit dans le repo, stow classique comme le reste
 backup_if_exists "$HOME/.config/nvim"
 
-for module in fish ghostty starship herdr nvim; do
+for module in fish ghostty starship herdr tuios nvim; do
   stow -v -d "$DOTFILES_DIR" -t "$HOME" "$module" 2>&1 | while read -r line; do
     info "  stow $module: $line"
   done
@@ -125,6 +125,14 @@ GHOSTTY_APP_SUPPORT="$HOME/Library/Application Support/com.mitchellh.ghostty"
 mkdir -p "$GHOSTTY_APP_SUPPORT"
 ln -sf "$HOME/.config/ghostty/config" "$GHOSTTY_APP_SUPPORT/config"
 ok "Symlink Ghostty → Application Support"
+
+# tuios macOS : il lit sa config dans Application Support, ou y range aussi ses
+# worktrees et sessions. On ne lie que le fichier, jamais le dossier.
+TUIOS_APP_SUPPORT="$HOME/Library/Application Support/tuios"
+mkdir -p "$TUIOS_APP_SUPPORT"
+backup_if_exists "$TUIOS_APP_SUPPORT/config.toml"
+ln -sf "$HOME/.config/tuios/config.toml" "$TUIOS_APP_SUPPORT/config.toml"
+ok "Symlink tuios → Application Support"
 
 ok "Stow terminé"
 

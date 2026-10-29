@@ -25,6 +25,7 @@ Retirés, ne pas les réintroduire sans demande explicite de Jeff :
 ├── starship/.config/
 ├── ghostty/.config/ghostty/
 ├── herdr/.config/herdr/config.toml
+├── tuios/.config/tuios/config.toml  # lié depuis ~/Library/Application Support/tuios/
 └── bazecor/                     # PAS un module Stow : backup Neuron du Defy + README
 ```
 
@@ -43,6 +44,11 @@ boucle Stow d'install.sh.
 - **Skill herdr Claude Code** : régénéré par `install.sh`
   (`herdr --skill` vers `~/.claude/skills/herdr/SKILL.md`), jamais versionné ici :
   le binaire fait foi pour la syntaxe de son CLI
+- **Config tuios** : symlink fichier par fichier depuis Application Support
+  (install.sh), jamais le dossier entier (tuios y range worktrees et
+  sessions). tuios réécrit le fichier en suivant le symlink (vérifié en
+  0.11.1) : un `set-config` modifie donc le repo. `theme = "none"` est voulu
+  (seul mode où les panneaux prennent la teinte du fond de Ghostty).
 - **Backup Defy** : après un save Bazecor, copier le plus récent de
   `~/Dygma/Backups/Defy/<id>/` vers `bazecor/defy-backup.json` et committer
 
