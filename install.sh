@@ -56,9 +56,26 @@ FORMULAE=(
   # Agents (tuios : multiplexeur et sessions persistantes pour agents de code)
   tuios
 )
-info "Installation/mise à jour des paquets brew..."
-brew install "${FORMULAE[@]}" 2>/dev/null || true
-ok "Paquets brew OK"
+# One formula at a time: a single refusal in a batch call (a formula installed
+# from another tap under the same name, an untrusted tap) skipped every other
+# missing formula without a word. Installed means installed, whatever its tap.
+INSTALLED_FORMULAE=$(brew list --formula -1)
+MISSING=()
+for formula in "${FORMULAE[@]}"; do
+  grep -qx "$formula" <<<"$INSTALLED_FORMULAE" || MISSING+=("$formula")
+done
+FAILED=()
+for formula in ${MISSING[@]+"${MISSING[@]}"}; do
+  info "Installation de $formula..."
+  brew install "$formula" || FAILED+=("$formula")
+done
+if [[ ${#FAILED[@]} -gt 0 ]]; then
+  warn "Paquets brew en echec : ${FAILED[*]}"
+elif [[ ${#MISSING[@]} -gt 0 ]]; then
+  ok "Paquets brew installes : ${MISSING[*]}"
+else
+  ok "Paquets brew deja installes"
+fi
 
 # ---------------------------------------------------------------------------
 # 4. Casks & Nerd Font
