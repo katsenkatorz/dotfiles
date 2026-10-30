@@ -49,7 +49,7 @@ FORMULAE=(
   # Éditeur
   neovim tree-sitter
   # Recherche & outils
-  ripgrep fd fzf coreutils bottom stow gh
+  ripgrep fd fzf coreutils bottom stow gh superfile
   # Dev
   node php composer symfony-cli yarn docker docker-compose colima
   lazygit lazydocker glab
@@ -114,7 +114,7 @@ cd "$DOTFILES_DIR"
 # nvim : la config LazyVim complète vit dans le repo, stow classique comme le reste
 backup_if_exists "$HOME/.config/nvim"
 
-for module in fish ghostty starship tuios nvim; do
+for module in fish ghostty starship tuios superfile nvim; do
   stow -v -d "$DOTFILES_DIR" -t "$HOME" "$module" 2>&1 | while read -r line; do
     info "  stow $module: $line"
   done
@@ -133,6 +133,16 @@ mkdir -p "$TUIOS_APP_SUPPORT"
 backup_if_exists "$TUIOS_APP_SUPPORT/config.toml"
 ln -sf "$HOME/.config/tuios/config.toml" "$TUIOS_APP_SUPPORT/config.toml"
 ok "Symlink tuios → Application Support"
+
+# superfile (spf) : meme principe, il ecrit aussi son log et ses controles de
+# version dans ce dossier. Seuls les fichiers de reglages sont lies.
+SPF_APP_SUPPORT="$HOME/Library/Application Support/superfile"
+mkdir -p "$SPF_APP_SUPPORT"
+for f in config.toml hotkeys.toml pinned.json; do
+  backup_if_exists "$SPF_APP_SUPPORT/$f"
+  ln -sf "$HOME/.config/superfile/$f" "$SPF_APP_SUPPORT/$f"
+done
+ok "Symlink superfile → Application Support"
 
 ok "Stow terminé"
 
