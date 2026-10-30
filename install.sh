@@ -63,7 +63,7 @@ ok "Paquets brew OK"
 # ---------------------------------------------------------------------------
 # 4. Casks & Nerd Font
 # ---------------------------------------------------------------------------
-CASKS=(font-fira-code-nerd-font font-jetbrains-mono-nerd-font ghostty gcloud-cli bazecor spaceman)
+CASKS=(font-fira-code-nerd-font font-jetbrains-mono-nerd-font ghostty gcloud-cli bazecor)
 for cask in "${CASKS[@]}"; do
   if brew list --cask "$cask" &>/dev/null; then
     ok "$cask déjà installé"
@@ -150,10 +150,6 @@ done
 ok "Symlink superfile → Application Support"
 
 ok "Stow terminé"
-
-# Spaceman affiche les Spaces dans la barre native (lancement au login
-# a activer dans ses preferences au premier lancement)
-open -a Spaceman 2>/dev/null || true
 
 # ---------------------------------------------------------------------------
 # 8. Installer Fisher + plugins fish
