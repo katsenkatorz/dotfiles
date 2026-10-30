@@ -7,7 +7,9 @@ Repo dotfiles macOS géré avec GNU Stow. Deux volets :
   (Ghostty, Neovim, Starship ; tuios suit les couleurs de Ghostty).
 - Desktop : barre de menu native, tuios
   (multiplexeur et sessions agents persistantes, ouvert par la première
-  fenêtre Ghostty via `initial-command = tuios attach` depuis le 2026-10-30),
+  fenêtre Ghostty via `initial-command`, un fish de login qui lance
+  `tuios attach`, depuis le 2026-10-30 ; sans fish de login le client tuios n'a
+  pas le PATH et ne trouve pas `claude`),
   clavier Dygma Defy (backup Bazecor versionné).
 
 Retirés, ne pas les réintroduire sans demande explicite de Jeff :

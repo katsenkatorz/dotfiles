@@ -134,6 +134,7 @@ width = 46
 width = 46
 
 [appearance]
+preferred_shell = "/opt/homebrew/bin/fish"
 dockbar_position = "top"
 show_clock = true
 show_cpu = true
@@ -181,3 +182,7 @@ follow = "mouse"
 
 [appearance.scrollbar]
 style = "track"
+
+[keybindings.prefix_mode]
+new_workspace = ["shift+="]
+break_pane = ["!"]
