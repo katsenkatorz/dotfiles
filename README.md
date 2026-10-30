@@ -73,6 +73,24 @@ comme pour Ghostty. Seul le fichier est lié, jamais le dossier, où tuios range
 aussi ses worktrees et ses sessions. Les `tuios set-config` passent par le
 symlink et modifient donc le fichier du repo : committer après un réglage.
 
+Quatre fonctions fish accompagnent ce flux (`fish/.config/fish/functions/`).
+Elles marchent dans un pane tuios comme depuis un terminal hors tuios :
+- `ag <nom> [chemin]` démarre un agent claude dans un pane, dans la session
+  tuios qui a déjà un pane dans ce dossier (sinon la session courante) ;
+- `ags` liste les agents claude vus par tuios (session, nom, état, `declare`
+  par les hooks ou `devine` à l'écran), puis les sessions en arrière-plan de
+  `claude agents` ;
+- `aga <id>` ouvre une de ces sessions de fond (`claude attach`) dans la
+  session tuios de son dossier, ou en crée une nommée `<dossier>-<ticket>` ;
+- `agn` renomme les panes d'agents d'après leur ticket (`#507 <dossier>`).
+
+Le ticket vient du corps de la PR de la branche (`Refs #N` / `Closes #N`), avec
+repli sur le numero de PR ; `main`, `master` et `develop` sont exclus. `agn` ne
+renomme jamais une session : une session tuios peut mêler plusieurs dossiers,
+et `tuios worktree` désigne une session de worktree par son nom. Une session
+ouverte par `aga` reste une session de fond : son état est deviné à l'écran,
+pas déclaré par les hooks (ils ne trouvent pas son pane).
+
 Couleurs : `theme = "none"` reprend les couleurs de Ghostty (Catppuccin Mocha,
 fond `#0F0A1C`). C'est le seul mode où la vue Agents et les autres panneaux
 prennent la teinte du fond ; avec un thème nommé, ils restent en gris neutre.
@@ -80,9 +98,7 @@ prennent la teinte du fond ; avec un thème nommé, ils restent en gris neutre.
 ## herdr (retiré le 2026-10-30)
 
 Remplacé par tuios : plus installé ni lié par `install.sh`. Sa config reste dans
-`herdr/` pour un retour éventuel (`brew install herdr && stow herdr`). Les
-fonctions fish `ag`, `ags`, `aga` et `agn` (`fish/.config/fish/functions/`)
-pilotent encore herdr et ne marchent pas dans tuios.
+`herdr/` pour un retour éventuel (`brew install herdr && stow herdr`).
 
 ## Après l'installation
 

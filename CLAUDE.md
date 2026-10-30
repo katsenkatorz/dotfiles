@@ -15,8 +15,8 @@ Retirés, ne pas les réintroduire sans demande explicite de Jeff :
 - yabai + skhd + JankyBorders, le 2026-09-15 (le tiling ne lui convenait pas),
   en même temps que le retour de night-owl vers Catppuccin Mocha.
 - herdr, le 2026-10-30, remplacé par tuios : plus installé ni stowé ; sa config
-  reste dans `herdr/` et les fonctions fish `ag`, `ags`, `aga`, `agn` le
-  pilotent encore.
+  reste dans `herdr/`. Les fonctions fish `ag`, `ags`, `aga`, `agn` sont
+  portées sur tuios (helpers `__ag_ticket*`, `__ag_session_of`).
 
 ## Structure
 
