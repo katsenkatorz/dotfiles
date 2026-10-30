@@ -4,7 +4,7 @@
 shell-integration = fish
 desktop-notifications = true
 # First window at launch joins the last tuios session; later tabs stay plain fish.
-initial-command = /opt/homebrew/bin/tuios attach
+initial-command = /opt/homebrew/bin/fish -l -c "exec /opt/homebrew/bin/tuios attach"
 
 #~~~~~~~~~~~~~~~~~~~~~~~#
 #theme

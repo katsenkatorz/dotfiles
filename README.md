@@ -63,9 +63,13 @@ backup complet du Neuron (voir `bazecor/README.md` pour restaurer/resynchroniser
 Multiplexeur et sessions persistantes pour agents, outil par défaut depuis le
 2026-10-30 (remplace herdr). La première fenêtre Ghostty ouvre `tuios attach`
 (`initial-command`) : elle rejoint la dernière session, ou en crée une. Les
-onglets suivants restent du fish simple. Prefix `Ctrl+B` ; `Ctrl+B i` ouvre la
-vue Agents, `Ctrl+B U` crée une session dans un nouveau worktree, `Ctrl+B d` se
-détache sans rien arrêter.
+onglets suivants restent du fish simple. Ghostty passe par un fish de login
+(`fish -l -c "exec tuios attach"`) : lancé seul, le client tuios n'a que le PATH
+système et ne trouve pas `claude` (« claude not found » dans New agent). Les
+panes s'ouvrent en fish (`preferred_shell`). Prefix `Ctrl+B` ; `Ctrl+B i` ouvre
+la vue Agents, `Ctrl+B U` crée une session dans un nouveau worktree, `Ctrl+B +`
+va sur le premier workspace vide, `Ctrl+B !` y envoie le pane courant, `Ctrl+B d`
+se détache sans rien arrêter.
 
 Il lit sa config dans `~/Library/Application Support/tuios/config.toml` :
 `install.sh` y crée un symlink vers `~/.config/tuios/config.toml` (module Stow),
