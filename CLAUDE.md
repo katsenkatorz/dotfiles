@@ -29,6 +29,7 @@ Retirés, ne pas les réintroduire sans demande explicite de Jeff :
 ├── ghostty/.config/ghostty/
 ├── herdr/.config/herdr/config.toml  # retiré, plus stowé
 ├── tuios/.config/tuios/config.toml  # lié depuis ~/Library/Application Support/tuios/
+├── superfile/.config/superfile/     # config spf, liée fichier par fichier depuis Application Support
 └── bazecor/                     # PAS un module Stow : backup Neuron du Defy + README
 ```
 
@@ -49,13 +50,16 @@ boucle Stow d'install.sh.
   sessions). tuios réécrit le fichier en suivant le symlink (vérifié en
   0.11.1) : un `set-config` modifie donc le repo. `theme = "none"` est voulu
   (seul mode où les panneaux prennent la teinte du fond de Ghostty).
+- **Config superfile** : même règle que tuios, seuls `config.toml`,
+  `hotkeys.toml` et `pinned.json` sont liés (le dossier contient aussi log et
+  état). superfile écrit via `os.WriteFile`, qui suit le lien.
 - **Backup Defy** : après un save Bazecor, copier le plus récent de
   `~/Dygma/Backups/Defy/<id>/` vers `bazecor/defy-backup.json` et committer
 
 ## Dépendances
 
 Brew : neovim lazygit lazydocker ripgrep fd fzf node coreutils bottom stow gh
-tuios. Casks : font-fira-code-nerd-font, ghostty, gcloud-cli, bazecor, spaceman,
+tuios superfile. Casks : font-fira-code-nerd-font, ghostty, gcloud-cli, bazecor, spaceman,
 lazyworktree (tap externe `chmouel/lazyworktree`, cask marqué de confiance par
 `brew trust --cask`, jamais le tap entier).
 

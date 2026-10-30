@@ -24,7 +24,7 @@ Le script est **idempotent** : tu peux le relancer sans risque, il ne réinstall
 
 Le reste est installé automatiquement par `install.sh` :
 neovim, lazygit, lazydocker, ripgrep, fd, fzf, node, coreutils, bottom, stow,
-gh, tuios, FiraCode Nerd Font. Casks : Bazecor, Spaceman, lazyworktree
+gh, tuios, superfile, FiraCode Nerd Font. Casks : Bazecor, Spaceman, lazyworktree
 (tap `chmouel/lazyworktree`).
 
 ## Structure du repo
@@ -38,6 +38,7 @@ gh, tuios, FiraCode Nerd Font. Casks : Bazecor, Spaceman, lazyworktree
 ├── ghostty/.config/ghostty/     # Catppuccin Mocha, FiraCode Nerd Font
 ├── herdr/.config/herdr/         # Ancienne config herdr, plus installée (voir plus bas)
 ├── tuios/.config/tuios/         # Multiplexeur tuios (lié depuis Application Support)
+├── superfile/.config/superfile/ # Gestionnaire de fichiers spf (lié depuis Application Support)
 └── bazecor/                     # Backup Neuron du Dygma Defy (pas un module Stow)
 ```
 
@@ -94,6 +95,16 @@ pas déclaré par les hooks (ils ne trouvent pas son pane).
 Couleurs : `theme = "none"` reprend les couleurs de Ghostty (Catppuccin Mocha,
 fond `#0F0A1C`). C'est le seul mode où la vue Agents et les autres panneaux
 prennent la teinte du fond ; avec un thème nommé, ils restent en gris neutre.
+
+## superfile
+
+Gestionnaire de fichiers en terminal, lancé par `spf` (`?` liste les raccourcis,
+`q` quitte). Il lit sa config dans `~/Library/Application Support/superfile/` :
+`install.sh` y lie `config.toml`, `hotkeys.toml` et `pinned.json` vers
+`~/.config/superfile/` (module Stow). Le log, les contrôles de version et les
+thèmes fournis restent locaux. superfile écrit ses fichiers à travers le lien
+(`os.WriteFile`) : un dossier épinglé ou un réglage modifié dans l'app modifie
+le repo, à committer.
 
 ## herdr (retiré le 2026-10-30)
 
