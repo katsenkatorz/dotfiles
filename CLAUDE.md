@@ -5,7 +5,7 @@
 Repo dotfiles macOS géré avec GNU Stow. Deux volets :
 - Terminal : Ghostty + Fish + Starship + LazyVim, thème Catppuccin Mocha partout
   (Ghostty, Neovim, Starship ; tuios suit les couleurs de Ghostty).
-- Desktop : barre de menu native + Spaceman (affichage des Spaces), tuios
+- Desktop : barre de menu native, tuios
   (multiplexeur et sessions agents persistantes, ouvert par la première
   fenêtre Ghostty via `initial-command = tuios attach` depuis le 2026-10-30),
   clavier Dygma Defy (backup Bazecor versionné).
@@ -17,6 +17,7 @@ Retirés, ne pas les réintroduire sans demande explicite de Jeff :
 - herdr, le 2026-10-30, remplacé par tuios : plus installé ni stowé ; sa config
   reste dans `herdr/`. Les fonctions fish `ag`, `ags`, `aga`, `agn` sont
   portées sur tuios (helpers `__ag_ticket*`, `__ag_session_of`).
+- Spaceman, le 2026-10-30 (ne fait plus partie de la conf) : plus installé ni lancé.
 
 ## Structure
 
@@ -59,7 +60,7 @@ boucle Stow d'install.sh.
 ## Dépendances
 
 Brew : neovim lazygit lazydocker ripgrep fd fzf node coreutils bottom stow gh
-tuios superfile. Casks : font-fira-code-nerd-font, ghostty, gcloud-cli, bazecor, spaceman,
+tuios superfile. Casks : font-fira-code-nerd-font, ghostty, gcloud-cli, bazecor,
 lazyworktree (tap externe `chmouel/lazyworktree`, cask marqué de confiance par
 `brew trust --cask`, jamais le tap entier).
 

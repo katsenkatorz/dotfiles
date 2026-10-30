@@ -2,7 +2,7 @@
 
 Environnement macOS complet, géré avec [GNU Stow](https://www.gnu.org/software/stow/) :
 Ghostty + Fish + LazyVim côté terminal (thème Catppuccin Mocha partout),
-barre de menu native + Spaceman pour les Spaces côté desktop,
+barre de menu native côté desktop,
 tuios pour les sessions d'agents persistantes (lancé par Ghostty),
 et le backup du clavier Dygma Defy.
 
@@ -24,7 +24,7 @@ Le script est **idempotent** : tu peux le relancer sans risque, il ne réinstall
 
 Le reste est installé automatiquement par `install.sh` :
 neovim, lazygit, lazydocker, ripgrep, fd, fzf, node, coreutils, bottom, stow,
-gh, tuios, superfile, FiraCode Nerd Font. Casks : Bazecor, Spaceman, lazyworktree
+gh, tuios, superfile, FiraCode Nerd Font. Casks : Bazecor, lazyworktree
 (tap `chmouel/lazyworktree`).
 
 ## Structure du repo
@@ -51,8 +51,7 @@ le repo le rend actif immédiatement. Commit + push pour sauvegarder.
 ## Desktop
 
 Pas de gestionnaire de fenêtres : yabai + skhd + JankyBorders ont été retirés
-le 2026-09-15. Spaceman affiche les Spaces dans la barre de menu native
-(activer "Launch at login" dans ses préférences au premier lancement).
+le 2026-09-15, Spaceman le 2026-10-30. La barre de menu native suffit.
 
 ## Dygma Defy
 
@@ -115,6 +114,5 @@ Remplacé par tuios : plus installé ni lié par `install.sh`. Sa config reste d
 
 1. **Relance Ghostty** pour charger la font : la première fenêtre ouvre tuios
 2. **Lance `nvim`** : LazyVim installe ses plugins au premier démarrage
-3. **Spaceman** : active "Launch at login" dans ses préférences
-4. **Dygma Defy** : restaure `bazecor/defy-backup.json` via Bazecor si besoin
-5. **Crée `~/.config/fish/conf.d/secrets.fish`** pour tes tokens/credentials
+3. **Dygma Defy** : restaure `bazecor/defy-backup.json` via Bazecor si besoin
+4. **Crée `~/.config/fish/conf.d/secrets.fish`** pour tes tokens/credentials
