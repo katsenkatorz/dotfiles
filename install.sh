@@ -53,8 +53,8 @@ FORMULAE=(
   # Dev
   node php composer symfony-cli yarn docker docker-compose colima
   lazygit lazydocker glab
-  # Agents (herdr : sessions persistantes pour agents de code, tuios : alternative en test)
-  herdr tuios
+  # Agents (tuios : multiplexeur et sessions persistantes pour agents de code)
+  tuios
 )
 info "Installation/mise à jour des paquets brew..."
 brew install "${FORMULAE[@]}" 2>/dev/null || true
@@ -114,7 +114,7 @@ cd "$DOTFILES_DIR"
 # nvim : la config LazyVim complète vit dans le repo, stow classique comme le reste
 backup_if_exists "$HOME/.config/nvim"
 
-for module in fish ghostty starship herdr tuios nvim; do
+for module in fish ghostty starship tuios nvim; do
   stow -v -d "$DOTFILES_DIR" -t "$HOME" "$module" 2>&1 | while read -r line; do
     info "  stow $module: $line"
   done
@@ -159,19 +159,8 @@ if [[ -f "$HOME/.config/fish/fish_plugins" ]]; then
 fi
 
 # ---------------------------------------------------------------------------
-# 9. Skill herdr pour Claude Code
+# 9. Integration Claude Code de tuios
 # ---------------------------------------------------------------------------
-# Le binaire fait foi pour la syntaxe de son CLI : on regenere le skill a chaque
-# install plutot que de versionner une copie qui derive a la prochaine version.
-if command -v herdr >/dev/null 2>&1; then
-  info "Synchronisation du skill herdr pour Claude Code..."
-  mkdir -p "$HOME/.claude/skills/herdr"
-  herdr --skill > "$HOME/.claude/skills/herdr/SKILL.md"
-  ok "Skill herdr synchronise ($(herdr --version))"
-else
-  warn "herdr introuvable : skill Claude Code non synchronise"
-fi
-
 # Hooks + skill tuios dans ~/.claude : `install` garde les reglages existants,
 # sauvegarde settings.json en .tuios.bak et ne fait rien hors d'un pane tuios.
 if command -v tuios >/dev/null 2>&1; then
@@ -195,7 +184,7 @@ echo -e "${GREEN}  Installation terminée !${NC}"
 echo -e "${GREEN}============================================${NC}"
 echo ""
 echo -e "Étapes manuelles restantes :"
-echo -e "  ${BLUE}1.${NC} Relance Ghostty pour prendre la nouvelle font"
+echo -e "  ${BLUE}1.${NC} Relance Ghostty : nouvelle font, et la premiere fenetre ouvre tuios"
 echo -e "  ${BLUE}2.${NC} Lance ${YELLOW}nvim${NC} : LazyVim installera ses plugins au premier démarrage"
 echo -e "  ${BLUE}3.${NC} Dans nvim, lance ${YELLOW}:checkhealth${NC} pour vérifier"
 echo -e "  ${BLUE}4.${NC} Crée ${YELLOW}~/.config/fish/conf.d/secrets.fish${NC} pour tes tokens/credentials"

@@ -3,11 +3,15 @@
 #~~~~~~~~~~~~~~~~~~~~~~~#
 shell-integration = fish
 desktop-notifications = true
+# First window at launch joins the last tuios session; later tabs stay plain fish.
+initial-command = /opt/homebrew/bin/tuios attach
 
 #~~~~~~~~~~~~~~~~~~~~~~~#
 #theme
 #~~~~~~~~~~~~~~~~~~~~~~~#
 theme = Catppuccin Mocha
+# Slapeo app background, overrides the theme's base
+background = #0F0A1C
 font-family = FiraCode
 font-size = 14
 

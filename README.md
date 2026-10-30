@@ -3,7 +3,7 @@
 Environnement macOS complet, géré avec [GNU Stow](https://www.gnu.org/software/stow/) :
 Ghostty + Fish + LazyVim côté terminal (thème Catppuccin Mocha partout),
 barre de menu native + Spaceman pour les Spaces côté desktop,
-herdr pour les sessions d'agents persistantes,
+tuios pour les sessions d'agents persistantes (lancé par Ghostty),
 et le backup du clavier Dygma Defy.
 
 ## Installation
@@ -24,7 +24,7 @@ Le script est **idempotent** : tu peux le relancer sans risque, il ne réinstall
 
 Le reste est installé automatiquement par `install.sh` :
 neovim, lazygit, lazydocker, ripgrep, fd, fzf, node, coreutils, bottom, stow,
-gh, herdr, tuios, FiraCode Nerd Font. Casks : Bazecor, Spaceman, lazyworktree
+gh, tuios, FiraCode Nerd Font. Casks : Bazecor, Spaceman, lazyworktree
 (tap `chmouel/lazyworktree`).
 
 ## Structure du repo
@@ -36,7 +36,7 @@ gh, herdr, tuios, FiraCode Nerd Font. Casks : Bazecor, Spaceman, lazyworktree
 ├── fish/.config/fish/           # config.fish, conf.d/, fish_plugins
 ├── starship/.config/            # Prompt Starship (catppuccin_mocha)
 ├── ghostty/.config/ghostty/     # Catppuccin Mocha, FiraCode Nerd Font
-├── herdr/.config/herdr/         # Sessions persistantes agents (thème, keybindings)
+├── herdr/.config/herdr/         # Ancienne config herdr, plus installée (voir plus bas)
 ├── tuios/.config/tuios/         # Multiplexeur tuios (lié depuis Application Support)
 └── bazecor/                     # Backup Neuron du Dygma Defy (pas un module Stow)
 ```
@@ -60,7 +60,13 @@ backup complet du Neuron (voir `bazecor/README.md` pour restaurer/resynchroniser
 
 ## tuios
 
-Multiplexeur pour agents, en essai depuis le 2026-10-28 à la place de herdr.
+Multiplexeur et sessions persistantes pour agents, outil par défaut depuis le
+2026-10-30 (remplace herdr). La première fenêtre Ghostty ouvre `tuios attach`
+(`initial-command`) : elle rejoint la dernière session, ou en crée une. Les
+onglets suivants restent du fish simple. Prefix `Ctrl+B` ; `Ctrl+B i` ouvre la
+vue Agents, `Ctrl+B U` crée une session dans un nouveau worktree, `Ctrl+B d` se
+détache sans rien arrêter.
+
 Il lit sa config dans `~/Library/Application Support/tuios/config.toml` :
 `install.sh` y crée un symlink vers `~/.config/tuios/config.toml` (module Stow),
 comme pour Ghostty. Seul le fichier est lié, jamais le dossier, où tuios range
@@ -71,44 +77,16 @@ Couleurs : `theme = "none"` reprend les couleurs de Ghostty (Catppuccin Mocha,
 fond `#0F0A1C`). C'est le seul mode où la vue Agents et les autres panneaux
 prennent la teinte du fond ; avec un thème nommé, ils restent en gris neutre.
 
-## herdr
+## herdr (retiré le 2026-10-30)
 
-Serveur de sessions persistantes pour agents (Claude Code, etc.), lancé à la
-main : `herdr` démarre le serveur s'il ne tourne pas et attache la session
-(ni service au login, ni attache automatique dans fish). Prefix `Ctrl+B` ;
-`Ctrl+B ?` liste les raccourcis ; `Ctrl+B Shift+O` ouvre un worktree git
-existant (dont les worktrees Claude Code).
-
-`install.sh` synchronise aussi le skill Claude Code de herdr
-(`herdr --skill` vers `~/.claude/skills/herdr/SKILL.md`) : c'est le binaire qui
-fait foi pour la syntaxe du CLI, donc le skill est regenere a chaque install
-plutot que versionne ici. Il donne aux agents le pilotage des panes, tabs,
-workspaces et des autres agents (`herdr pane split`, `herdr pane run`,
-`herdr agent prompt --wait`), et ne s'active que dans un pane herdr
-(`HERDR_ENV=1`).
-
-Deux fonctions fish accompagnent ce flux (`fish/.config/fish/functions/`) :
-`ag <nom> [chemin]` cree un tab dans le workspace courant et y demarre un
-agent claude nomme, `ags` liste les agents vus par herdr puis les sessions
-en arriere-plan, et `aga <id>` attache une de ces sessions dans un pane du
-workspace de SON dossier (il ouvre le workspace du worktree au besoin).
-`agn` recale tout le monde sur son numero de ticket.
-
-Le numero vient du corps de la PR de la branche (`Refs #N` / `Closes #N`),
-avec repli sur le numero de PR. Il est pose en prefixe sur le tab
-(`#507 spec-body-pose`, `PR533 ...`) et sur le nom d'agent
-(`i507-spec-body-pose` : un nom d'agent herdr doit commencer par une
-lettre, `507-x` est refuse), et en SUFFIXE sur le workspace d'un worktree
-(`spec-body-pose-507`). `main`, `master` et `develop` sont exclus : la PR
-de release collerait son issue au checkout principal. Un agent doit NAITRE dans un pane :
-seul ce cas fait declarer son etat par Claude Code (colonne `declare` de
-`ags`). Une session dispatchee par `claude agents` puis rattachee avec
-`claude attach` reste visible mais son etat est devine en lisant l'ecran,
-donc un agent bloque peut s'y afficher comme termine.
+Remplacé par tuios : plus installé ni lié par `install.sh`. Sa config reste dans
+`herdr/` pour un retour éventuel (`brew install herdr && stow herdr`). Les
+fonctions fish `ag`, `ags`, `aga` et `agn` (`fish/.config/fish/functions/`)
+pilotent encore herdr et ne marchent pas dans tuios.
 
 ## Après l'installation
 
-1. **Relance Ghostty** pour charger la font, puis `herdr` pour ouvrir la session d'agents
+1. **Relance Ghostty** pour charger la font : la première fenêtre ouvre tuios
 2. **Lance `nvim`** : LazyVim installe ses plugins au premier démarrage
 3. **Spaceman** : active "Launch at login" dans ses préférences
 4. **Dygma Defy** : restaure `bazecor/defy-backup.json` via Bazecor si besoin

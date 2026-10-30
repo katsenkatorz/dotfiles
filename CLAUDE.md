@@ -4,16 +4,19 @@
 
 Repo dotfiles macOS géré avec GNU Stow. Deux volets :
 - Terminal : Ghostty + Fish + Starship + LazyVim, thème Catppuccin Mocha partout
-  (Ghostty, herdr, Neovim, Starship).
-- Desktop : barre de menu native + Spaceman (affichage des Spaces), herdr
-  (sessions agents persistantes, lancé à la main : ni service au login ni
-  attache auto dans fish depuis le 2026-09-15), clavier Dygma Defy (backup
-  Bazecor versionné).
+  (Ghostty, Neovim, Starship ; tuios suit les couleurs de Ghostty).
+- Desktop : barre de menu native + Spaceman (affichage des Spaces), tuios
+  (multiplexeur et sessions agents persistantes, ouvert par la première
+  fenêtre Ghostty via `initial-command = tuios attach` depuis le 2026-10-30),
+  clavier Dygma Defy (backup Bazecor versionné).
 
 Retirés, ne pas les réintroduire sans demande explicite de Jeff :
 - SketchyBar, le 2026-08-19 (widgets custom bugués).
 - yabai + skhd + JankyBorders, le 2026-09-15 (le tiling ne lui convenait pas),
   en même temps que le retour de night-owl vers Catppuccin Mocha.
+- herdr, le 2026-10-30, remplacé par tuios : plus installé ni stowé ; sa config
+  reste dans `herdr/` et les fonctions fish `ag`, `ags`, `aga`, `agn` le
+  pilotent encore.
 
 ## Structure
 
@@ -24,7 +27,7 @@ Retirés, ne pas les réintroduire sans demande explicite de Jeff :
 ├── fish/.config/fish/           # config.fish, conf.d/, fish_plugins
 ├── starship/.config/
 ├── ghostty/.config/ghostty/
-├── herdr/.config/herdr/config.toml
+├── herdr/.config/herdr/config.toml  # retiré, plus stowé
 ├── tuios/.config/tuios/config.toml  # lié depuis ~/Library/Application Support/tuios/
 └── bazecor/                     # PAS un module Stow : backup Neuron du Defy + README
 ```
@@ -40,10 +43,7 @@ boucle Stow d'install.sh.
 - **install.sh doit rester idempotent** : vérifier avant d'agir, backup avant d'écraser
 - **macOS uniquement** : `gmd5sum` (coreutils) au lieu de `md5sum`
 - **Thème** : Catppuccin Mocha partout, pas de palette maison
-- **Recharger après modif** : `herdr server reload-config`
-- **Skill herdr Claude Code** : régénéré par `install.sh`
-  (`herdr --skill` vers `~/.claude/skills/herdr/SKILL.md`), jamais versionné ici :
-  le binaire fait foi pour la syntaxe de son CLI
+- **Recharger tuios après modif du fichier** : `tuios config apply`
 - **Config tuios** : symlink fichier par fichier depuis Application Support
   (install.sh), jamais le dossier entier (tuios y range worktrees et
   sessions). tuios réécrit le fichier en suivant le symlink (vérifié en
@@ -55,11 +55,11 @@ boucle Stow d'install.sh.
 ## Dépendances
 
 Brew : neovim lazygit lazydocker ripgrep fd fzf node coreutils bottom stow gh
-herdr tuios. Casks : font-fira-code-nerd-font, ghostty, gcloud-cli, bazecor, spaceman,
+tuios. Casks : font-fira-code-nerd-font, ghostty, gcloud-cli, bazecor, spaceman,
 lazyworktree (tap externe `chmouel/lazyworktree`, cask marqué de confiance par
 `brew trust --cask`, jamais le tap entier).
 
-tuios (multiplexeur, essai depuis le 2026-10-28 à la place de herdr) :
+tuios (multiplexeur par défaut depuis le 2026-10-30, à la place de herdr) :
 `install.sh` installe son intégration Claude Code
 (`tuios integration install claude-code` : hooks dans `~/.claude/settings.json`
 + skill `~/.claude/skills/tuios/`), retrait par `tuios integration uninstall
