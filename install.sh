@@ -91,6 +91,11 @@ fi
 # ---------------------------------------------------------------------------
 backup_if_exists() {
   local target="$1"
+  # Through a stow-folded folder link (~/.config/ghostty -> repo), the file is
+  # the repo's own copy: moving it would delete it from the repo.
+  local real
+  real=$(realpath "$target" 2>/dev/null || echo "$target")
+  [[ "$real" == "$DOTFILES_DIR"/* ]] && return 0
   if [[ -e "$target" && ! -L "$target" ]]; then
     local backup="${target}.bak.${TIMESTAMP}"
     warn "Backup: $target → $backup"
