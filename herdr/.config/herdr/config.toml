@@ -21,3 +21,8 @@ delivery = "terminal"
 [theme]
 name = "catppuccin"
 auto_switch = false
+
+[session]
+# A resumed pane duplicates any session the `claude agents` daemon already runs
+# in the background (second process, then a "(2)" job). Reattach with `aga <id>`.
+resume_agents_on_restore = false
