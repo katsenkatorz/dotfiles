@@ -53,8 +53,8 @@ FORMULAE=(
   # Dev
   node php composer symfony-cli yarn docker docker-compose colima
   lazygit lazydocker glab
-  # Agents (herdr : sessions persistantes pour agents de code)
-  herdr
+  # Agents (tuios : multiplexeur et sessions persistantes pour agents de code)
+  tuios
 )
 info "Installation/mise à jour des paquets brew..."
 brew install "${FORMULAE[@]}" 2>/dev/null || true
@@ -73,6 +73,18 @@ for cask in "${CASKS[@]}"; do
     ok "$cask installé"
   fi
 done
+
+# lazyworktree is only published in its author's tap; Homebrew refuses to load
+# a cask from an untrusted tap, so trust that single cask, not the whole tap.
+if brew list --cask lazyworktree &>/dev/null; then
+  ok "lazyworktree déjà installé"
+else
+  info "Installation de lazyworktree (tap chmouel/lazyworktree)..."
+  brew tap chmouel/lazyworktree https://github.com/chmouel/lazyworktree
+  brew trust --cask chmouel/lazyworktree/lazyworktree
+  brew install --cask lazyworktree
+  ok "lazyworktree installé"
+fi
 
 # ---------------------------------------------------------------------------
 # 5. Sauvegarder les configs existantes
@@ -102,7 +114,7 @@ cd "$DOTFILES_DIR"
 # nvim : la config LazyVim complète vit dans le repo, stow classique comme le reste
 backup_if_exists "$HOME/.config/nvim"
 
-for module in fish ghostty starship herdr nvim; do
+for module in fish ghostty starship tuios nvim; do
   stow -v -d "$DOTFILES_DIR" -t "$HOME" "$module" 2>&1 | while read -r line; do
     info "  stow $module: $line"
   done
@@ -113,6 +125,14 @@ GHOSTTY_APP_SUPPORT="$HOME/Library/Application Support/com.mitchellh.ghostty"
 mkdir -p "$GHOSTTY_APP_SUPPORT"
 ln -sf "$HOME/.config/ghostty/config" "$GHOSTTY_APP_SUPPORT/config"
 ok "Symlink Ghostty → Application Support"
+
+# tuios macOS : il lit sa config dans Application Support, ou y range aussi ses
+# worktrees et sessions. On ne lie que le fichier, jamais le dossier.
+TUIOS_APP_SUPPORT="$HOME/Library/Application Support/tuios"
+mkdir -p "$TUIOS_APP_SUPPORT"
+backup_if_exists "$TUIOS_APP_SUPPORT/config.toml"
+ln -sf "$HOME/.config/tuios/config.toml" "$TUIOS_APP_SUPPORT/config.toml"
+ok "Symlink tuios → Application Support"
 
 ok "Stow terminé"
 
@@ -139,17 +159,20 @@ if [[ -f "$HOME/.config/fish/fish_plugins" ]]; then
 fi
 
 # ---------------------------------------------------------------------------
-# 9. Skill herdr pour Claude Code
+# 9. Integration Claude Code de tuios
 # ---------------------------------------------------------------------------
-# Le binaire fait foi pour la syntaxe de son CLI : on regenere le skill a chaque
-# install plutot que de versionner une copie qui derive a la prochaine version.
-if command -v herdr >/dev/null 2>&1; then
-  info "Synchronisation du skill herdr pour Claude Code..."
-  mkdir -p "$HOME/.claude/skills/herdr"
-  herdr --skill > "$HOME/.claude/skills/herdr/SKILL.md"
-  ok "Skill herdr synchronise ($(herdr --version))"
+# Hooks + skill tuios dans ~/.claude : `install` garde les reglages existants,
+# sauvegarde settings.json en .tuios.bak et ne fait rien hors d'un pane tuios.
+if command -v tuios >/dev/null 2>&1; then
+  if tuios integration status claude-code 2>/dev/null | grep -q 'installed, current'; then
+    ok "Integration Claude Code de tuios deja a jour"
+  else
+    info "Installation de l'integration Claude Code de tuios..."
+    tuios integration install claude-code
+    ok "Integration Claude Code de tuios installee"
+  fi
 else
-  warn "herdr introuvable : skill Claude Code non synchronise"
+  warn "tuios introuvable : integration Claude Code non installee"
 fi
 
 # ---------------------------------------------------------------------------
@@ -161,7 +184,7 @@ echo -e "${GREEN}  Installation terminée !${NC}"
 echo -e "${GREEN}============================================${NC}"
 echo ""
 echo -e "Étapes manuelles restantes :"
-echo -e "  ${BLUE}1.${NC} Relance Ghostty pour prendre la nouvelle font"
+echo -e "  ${BLUE}1.${NC} Relance Ghostty : nouvelle font, et la premiere fenetre ouvre tuios"
 echo -e "  ${BLUE}2.${NC} Lance ${YELLOW}nvim${NC} : LazyVim installera ses plugins au premier démarrage"
 echo -e "  ${BLUE}3.${NC} Dans nvim, lance ${YELLOW}:checkhealth${NC} pour vérifier"
 echo -e "  ${BLUE}4.${NC} Crée ${YELLOW}~/.config/fish/conf.d/secrets.fish${NC} pour tes tokens/credentials"

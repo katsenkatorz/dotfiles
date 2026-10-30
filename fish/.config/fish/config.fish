@@ -89,3 +89,5 @@ fish_add_path $HOME/.local/bin
 if test -d $HOME/.codeium/windsurf/bin
     fish_add_path $HOME/.codeium/windsurf/bin
 end
+
+eval (/opt/homebrew/bin/brew shellenv fish)

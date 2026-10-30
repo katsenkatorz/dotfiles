@@ -1,4 +1,4 @@
-function __herdr_ticket --argument-names dir --description "Numero de ticket d'un dossier : 507 pour une issue, pr532 a defaut, vide sinon"
+function __ag_ticket --argument-names dir --description "Numero de ticket d'un dossier : 507 pour une issue, pr532 a defaut, vide sinon"
     test -n "$dir"; or return 1
     # La branche locale d'un worktree Claude Code (worktree-<nom>) ne correspond
     # pas a la branche poussee : l'upstream fait foi quand il existe.
