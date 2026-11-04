@@ -186,3 +186,17 @@ style = "track"
 [keybindings.prefix_mode]
 new_workspace = ["shift+="]
 break_pane = ["!"]
+
+# ---- Agent cockpit (github.com/katsenkatorz/tuios-cockpit, phase 0) ----
+
+# Short Claude Code permission prompts wait in the Inbox (1 once, 2 always,
+# 3 deny) instead of only in the pane.
+[agents.approvals]
+enabled = ["claude-code"]
+hold_seconds = 120
+
+[[keybindings.command]]
+key = "prefix+alt+c"
+type = "popup"
+command = 'tuios switch-session main-session && { tuios focus-window -s main-session cockpit 2>/dev/null || tuios focus-window -s main-session "Cockpit v4"; }'
+description = "Back to the agent cockpit"
