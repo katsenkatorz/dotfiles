@@ -1,40 +1,13 @@
-function ag --description "Demarre un agent claude dans un pane tuios, dans la session de son dossier"
-    set -l name $argv[1]
-    if test -z "$name"
-        echo "usage: ag <nom> [chemin]" >&2
+function ag --description "Lance un Ailier avec cockpit agent : worktree, session tuios et tache"
+    if not command -q cockpit
+        echo "ag : la commande cockpit est absente." >&2
+        echo "  installe-la : ~/Developer/Labs/tuios-cockpit/scripts/install.sh" >&2
+        return 127
+    end
+    if test (count $argv) -lt 3
+        echo "usage : ag <repo> <branche> \"<tache>\" [--model <m>] [--mission <id>]" >&2
+        echo "  les repos viennent du registre ~/.config/tuios-cockpit/repos.json" >&2
         return 2
     end
-
-    set -l dir (pwd)
-    if test (count $argv) -ge 2
-        set dir (realpath $argv[2])
-    end
-
-    set -l label "$name"
-    set -l ticket (__ag_ticket "$dir")
-    if test -n "$ticket"
-        set label (__ag_ticket_fmt $ticket label)" $name"
-    end
-
-    # The work has its own session once a pane is open in its folder: start the
-    # agent there rather than in the session the command is typed from.
-    set -l session (__ag_session_of "$dir")
-    set -l target
-    if test -n "$session"
-        set target -s $session
-    end
-
-    # Born in a pane, never with --bg: only then do the hooks declare its state.
-    if not tuios start-agent claude $target --cwd "$dir" --name "$label" >/dev/null
-        echo "ag: l'agent n'a pas demarre dans $dir" >&2
-        return 1
-    end
-
-    if test -n "$session"
-        echo "agent '$label' demarre dans la session $session"
-    else
-        echo "agent '$label' demarre dans la session courante"
-    end
-    echo "  dossier : $dir"
-    echo "  parler  : tuios ask-agent -w \"$label\" \"...\""
+    cockpit agent $argv
 end

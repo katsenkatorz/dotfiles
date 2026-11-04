@@ -17,8 +17,10 @@ Retirés, ne pas les réintroduire sans demande explicite de Jeff :
 - yabai + skhd + JankyBorders, le 2026-09-15 (le tiling ne lui convenait pas),
   en même temps que le retour de night-owl vers Catppuccin Mocha.
 - herdr, le 2026-10-30, remplacé par tuios : plus installé ni stowé ; sa config
-  reste dans `herdr/`. Les fonctions fish `ag`, `ags`, `aga`, `agn` sont
-  portées sur tuios (helpers `__ag_ticket*`, `__ag_session_of`).
+  reste dans `herdr/`. Les fonctions fish `ag`, `ags`, `agn` sont portées sur
+  tuios (helpers `__ag_ticket*`) ; depuis le 2026-11-04, `ag` passe par
+  `cockpit agent` (repo tuios-cockpit), `aga` et `__ag_session_of` sont retirés
+  et `ags` ne lit plus que tuios (plus `cockpit ls`).
 - Spaceman, le 2026-10-30 (ne fait plus partie de la conf) : plus installé ni lancé.
 
 ## Structure
