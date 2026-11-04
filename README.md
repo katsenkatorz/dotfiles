@@ -77,23 +77,24 @@ comme pour Ghostty. Seul le fichier est lié, jamais le dossier, où tuios range
 aussi ses worktrees et ses sessions. Les `tuios set-config` passent par le
 symlink et modifient donc le fichier du repo : committer après un réglage.
 
-Quatre fonctions fish accompagnent ce flux (`fish/.config/fish/functions/`).
+Trois fonctions fish accompagnent ce flux (`fish/.config/fish/functions/`).
 Elles marchent dans un pane tuios comme depuis un terminal hors tuios :
-- `ag <nom> [chemin]` démarre un agent claude dans un pane, dans la session
-  tuios qui a déjà un pane dans ce dossier (sinon la session courante) ;
+- `ag <repo> <branche> "<tâche>"` lance un Ailier avec `cockpit agent`
+  (repo `tuios-cockpit`) : worktree `claude --worktree` recalé sur la base du
+  repo, session tuios `<repo>-<branche>`, tâche en file, cockpit ouvert. Les
+  repos viennent du registre `~/.config/tuios-cockpit/repos.json` ; sans la
+  commande `cockpit`, `ag` dit comment l'installer ;
 - `ags` liste les agents claude vus par tuios (session, nom, état, `declare`
-  par les hooks ou `devine` à l'écran), puis les sessions en arrière-plan de
-  `claude agents` ;
-- `aga <id>` ouvre une de ces sessions de fond (`claude attach`) dans la
-  session tuios de son dossier, ou en crée une nommée `<dossier>-<ticket>` ;
+  par les hooks ou `devine` à l'écran), puis `cockpit ls` (Tours, missions,
+  Ailiers) quand `cockpit` est installé ;
 - `agn` renomme les panes d'agents d'après leur ticket (`#507 <dossier>`).
 
 Le ticket vient du corps de la PR de la branche (`Refs #N` / `Closes #N`), avec
 repli sur le numero de PR ; `main`, `master` et `develop` sont exclus. `agn` ne
 renomme jamais une session : une session tuios peut mêler plusieurs dossiers,
-et `tuios worktree` désigne une session de worktree par son nom. Une session
-ouverte par `aga` reste une session de fond : son état est deviné à l'écran,
-pas déclaré par les hooks (ils ne trouvent pas son pane).
+et `tuios worktree` désigne une session de worktree par son nom. Les sessions
+de fond `claude agents` ne sont plus ouvertes dans tuios (`aga` retiré le
+2026-11-04) : les agents de code passent par `cockpit agent`.
 
 Couleurs : `theme = "none"` reprend les couleurs de Ghostty (Catppuccin Mocha,
 fond `#0F0A1C`). C'est le seul mode où la vue Agents et les autres panneaux
