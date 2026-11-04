@@ -189,11 +189,6 @@ break_pane = ["!"]
 
 # ---- Agent cockpit (github.com/katsenkatorz/tuios-cockpit, phase 0) ----
 
-# Worktrees live under ~/Developer: Claude Code already trusts that folder, so
-# an agent started in a new worktree does not stop on the trust question.
-[worktree]
-path = "~/Developer/.worktrees/{{ repo }}/{{ branch | slug }}"
-
 # Short Claude Code permission prompts wait in the Inbox (1 once, 2 always,
 # 3 deny) instead of only in the pane.
 [agents.approvals]
