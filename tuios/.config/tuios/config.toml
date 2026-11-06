@@ -200,3 +200,9 @@ key = "prefix+alt+c"
 type = "popup"
 command = 'tuios switch-session main-session && { tuios focus-window -s main-session cockpit 2>/dev/null || tuios focus-window -s main-session "Cockpit v4"; }'
 description = "Back to the agent cockpit"
+
+# After a reboot or a daemon restart, every pane's agent (Tours, Pilotes,
+# Ailiers, Vols libres) resumes its conversation on its own; `cockpit open`
+# then brings the cockpit back.
+[daemon]
+resume_agents = "auto"
