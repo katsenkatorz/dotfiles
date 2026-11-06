@@ -129,6 +129,8 @@ width = 24
 
 [appearance.sidebar]
 width = 46
+files_style = "tree"
+show_numbers = false
 
 [appearance.sidebar.right]
 width = 46
